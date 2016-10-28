@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from "react-router";
+import { Link } from "react-router";
 
 class Nav extends Component {
 
@@ -24,9 +24,8 @@ class Nav extends Component {
 									{item.childs.map((child, childIndex) => {
 										return (
 											<li key={`docs-nav-item-${item.title}-${child.title}`}>
-												{/*<Link to={`${itemIndex}-${childIndex}`}>{child.title}</Link>*/}
-												<a href={`${itemIndex}-${childIndex}`}>{child.title}</a>
-
+												{/*<Link to={`${this.props.root || ""}${itemIndex}-${childIndex}`}>{child.title}</Link>*/}
+												<a href={`${this.props.root || ""}${itemIndex}-${childIndex}`}>{child.title}</a>
 											</li>
 										)
 									})}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Router, Route, browserHistory} from 'react-router';
+import {Router, browserHistory, Redirect} from 'react-router';
 
 import RethinkDBIcon from "../public/DocsPages/images/logo.png";
 import MenuIcon from '../public/DocsPages/images/icon-menu-white.png';
@@ -7,11 +7,10 @@ import MenuIcon from '../public/DocsPages/images/icon-menu-white.png';
 import './assets/styles/styles.css';
 import './assets/styles/jekyll-github.css';
 
-import DocsIndex, {  getRouter as docsGetRouter } from "./Docs/DocsIndex.js";
+import { getRouter as docsGetRouter } from "./Docs.js";
 
 class App extends Component {
     render() {
-    	console.log(docsGetRouter("/"));
 		return (
 			<div>
 				<nav className="site-nav">
@@ -19,7 +18,8 @@ class App extends Component {
 						<a className="logo" style={{backgroundImage: RethinkDBIcon}} href="/">RethinkDB</a>
 						<ul>
 							<li className="menu-trigger">
-								<a href="/"><img className="menu-trigger-icon" src={MenuIcon} role="presentation" /></a></li>
+								<a href="/"><img className="menu-trigger-icon" src={MenuIcon} role="presentation" /></a>
+							</li>
 							<li className="active"><a href="/docs">Docs</a></li>
 							<li><a href="/api">API</a></li>
 						</ul>
@@ -27,20 +27,8 @@ class App extends Component {
 				</nav>
 
 				<Router onUpdate={() => window.scrollTo(0, 0)} history={browserHistory}>
-					{/*<Route path={"/"} component={DocsIndex} >*/}
-						{/*<IndexRoute component={DocsIndex} />*/}
-						{/*{ docsGetRouter() }*/}
-					{/*</Route>*/}
-
-					{ docsGetRouter("/") }
-
-					{/*<Route path={"/"} component={<div><span>root</span></div>} >*/}
-						{/*<IndexRoute component={<span>home</span>} />*/}
-						{/*<Route path={"user"} component={<span>user</span>} />*/}
-						{/*<Route path={"home"} component={<span>home</span>} />*/}
-					{/*</Route>*/}
-
-					<Route path="/api" component={DocsIndex}></Route>
+					{ docsGetRouter("/docs") }
+					<Redirect from="/" to="docs" />
 				</Router>
 			</div>
 		);

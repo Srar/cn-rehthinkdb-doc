@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import {Route, IndexRoute} from 'react-router';
-import MarkedownView from "../Share/MarkedownView";
+import MarkedownView from "./components/MarkedownView";
 
-import Nav from "./Nav";
+import Nav from "./components/ChildNav";
 
-const Pages = [
+var Pages = [
 	{
+		root : "/",
 		index: "DocsPages/Main.md",
 	},
 	{
 		title: "入门指南",
-		root : "DocsPages/GettingStarted/",
+		root : "/DocsPages/GettingStarted/",
 		childs: [
 			{ title: "安装 RethinkDB", path: "InstallTheServer.md" },
 			{ title: "30秒快速入门", path: "Quickstart.md" },
@@ -37,7 +38,10 @@ const Pages = [
 	}
 ];
 
+var PathRoot = "";
+
 export function getRouter(path) {
+	PathRoot = path + "/";
 	return (
 		<Route path={path} component={DocsIndex}>
 			<IndexRoute component={MarkedownView} url={Pages[0].index} />
@@ -46,7 +50,6 @@ export function getRouter(path) {
 				return page.childs.map((child, childIndex) => {
 					return (
 						<Route
-							key={`${pageIndex}-${childIndex}`}
 							path={`${pageIndex}-${childIndex}`}
 							url={page.root + child.path}
 							component={MarkedownView} />
@@ -64,7 +67,7 @@ class DocsIndex extends Component {
 		return (
 			<section className="documentation">
 				<div className="site-container">
-					<Nav items={Pages} defaultChild={<span>hello</span>} />
+					<Nav items={Pages} root={PathRoot} defaultChild={<span>hello</span>} />
 					{this.props.children}
 				</div>
 			</section>
