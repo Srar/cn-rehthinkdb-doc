@@ -1,7 +1,7 @@
 # RethinkDB 30秒快速入门
 
 <div class="infobox">
-    开始之前确保你已经 <a href="/1-0">安装RehtinkDB</a>.
+    开始之前确保你已经 <a href="/docs/1-0">安装RehtinkDB</a>.
 </div>
 
 <p>

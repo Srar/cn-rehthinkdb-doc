@@ -76,7 +76,7 @@ ___你现在已经有一个RethinkDB集群了! ___ 你可以通过浏览器访�
 ```
 $ rethinkdb --bind all
 ```
-开启第二个RethinkDB实例在第二天机器上
+开启第二个RethinkDB实例在第二台机器上
 ```
 $ rethinkdb --join 第一台IP:29015 --bind all
 ```
