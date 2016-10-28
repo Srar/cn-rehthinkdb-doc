@@ -20,10 +20,10 @@ var Pages = [
 		]
 	},
 	{
-		title: "The ReQL query language",
-		root : "DocsPages/ReQLQuery/",
+		title: "ReQL查询",
+		root : "/DocsPages/ReQLQuery/",
 		childs: [
-			{ title: "Ten-minute guide", path: "Main.md" },
+			{ title: "10分钟快速了解", path: "TenMinuteGuideJS.md" },
 			{ title: "Introduction to ReQL", path: "Main.md" },
 			{ title: "Using secondary indexes", path: "Main.md" },
 			{ title: "Accessing nested fields", path: "Main.md" },
