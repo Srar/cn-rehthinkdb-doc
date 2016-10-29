@@ -24,7 +24,7 @@ var Pages = [
 		root : "/DocsPages/ReQLQuery/",
 		childs: [
 			{ title: "10分钟快速了解", path: "TenMinuteGuideJS.md" },
-			{ title: "Introduction to ReQL", path: "Main.md" },
+			{ title: "了解 ReQL", path: "IntroductionToReQL.md" },
 			{ title: "Using secondary indexes", path: "Main.md" },
 			{ title: "Accessing nested fields", path: "Main.md" },
 			{ title: "Table joins in RethinkDB", path: "Main.md" },
