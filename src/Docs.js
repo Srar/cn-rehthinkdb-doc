@@ -26,7 +26,7 @@ var Pages = [
 			{ title: "10分钟快速了解", path: "TenMinuteGuideJS.md" },
 			{ title: "了解 ReQL", path: "IntroductionToReQL.md" },
 			{ title: "使用索引", path: "UsingSecondaryIndexes.md" },
-			{ title: "Accessing nested fields", path: "Main.md" },
+			{ title: "访问嵌套字段", path: "AccessingNestedFields.md" },
 			{ title: "Table joins in RethinkDB", path: "Main.md" },
 			{ title: "Map-reduce in RethinkDB", path: "Main.md" },
 			{ title: "Changefeeds", path: "Main.md" },
