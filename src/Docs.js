@@ -27,7 +27,7 @@ var Pages = [
 			{ title: "了解 ReQL", path: "IntroductionToReQL.md" },
 			{ title: "使用索引", path: "UsingSecondaryIndexes.md" },
 			{ title: "访问嵌套字段", path: "AccessingNestedFields.md" },
-			{ title: "Table joins in RethinkDB", path: "Main.md" },
+			{ title: "RethinkDB中表连接", path: "TableJoinsInRethinkDB.md" },
 			{ title: "Map-reduce in RethinkDB", path: "Main.md" },
 			{ title: "Changefeeds", path: "Main.md" },
 			{ title: "Asynchronous connections", path: "Main.md" },
