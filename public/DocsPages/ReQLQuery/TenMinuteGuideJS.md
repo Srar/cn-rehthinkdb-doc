@@ -18,7 +18,7 @@
 
 如你不知道如何启动, 请阅读[30秒快速入门](/docs/1-1).
 
-# 导入依赖
+## 导入依赖
 
 首先启动 Node.JS
 ```
@@ -32,7 +32,7 @@ r = require('rethinkdb');
 
 现在你已经可以通过`r`来执行RethinkDB命令了
 
-# 打开一个连接
+## 打开一个连接
 
 当启动RethinkDB时, RethinkDB会开启一个___应用程序通讯端口___(默认28015)来让应用程序连接, 我们来连接这个端口
 ```
@@ -44,7 +44,7 @@ r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
 ```
 现在变量`connection`已经被初始化，我们可以用它来执行查询
 
-# 创建新表
+## 创建新表
 
 一般来说RethinkDB会默认创建一个`test`数据库，我们在这个数据库中创建一个`authors`表:
 ```
