@@ -29,7 +29,7 @@ var Pages = [
 			{ title: "访问嵌套字段", path: "AccessingNestedFields.md" },
 			{ title: "RethinkDB中的表连接", path: "TableJoinsInRethinkDB.md" },
 			{ title: "RethinkDB中的Map-reduce", path: "MapReduceInRethinkDB.md" },
-			{ title: "Changefeeds", path: "Main.md" },
+			{ title: "Changefeeds", path: "Changefeeds.md" },
 			{ title: "Asynchronous connections", path: "Main.md" },
 			{ title: "Accessing HTTP APIs", path: "Main.md" },
 			{ title: "ReQL error types", path: "Main.md" },
