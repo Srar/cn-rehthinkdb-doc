@@ -92,7 +92,7 @@ ___你现在已经有一个RethinkDB分布式集群了! ___
 ## 遇到错误
 <div class="infobox">
    集群中的节点RethinkDB版本不能相差过大否则会无法加入集群<br/>
-   节点的系统位数必须要一样列如32位系统无法加入64位系统的节点集群
+   节点的RethinkDB位数必须要一样列如32位实例无法加入64位实例的节点集群
 </div>
 <div class="infobox">
    RethinkDB实例加入集群时提示 <b>'received invalid clustering header'?</b><br />
