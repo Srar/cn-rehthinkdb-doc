@@ -91,10 +91,14 @@ ___你现在已经有一个RethinkDB分布式集群了! ___
 
 ## 遇到错误
 <div class="infobox">
+   集群中的节点RethinkDB版本不能相差过大否则会无法加入集群<br/>
+   节点的系统位数必须要一样列如32位系统无法加入64位系统的节点集群
+</div>
+<div class="infobox">
    RethinkDB实例加入集群时提示 <b>'received invalid clustering header'?</b><br />
     RethinkDB会占用机器三个端口分别作用是<b>Web管理界面</b>，<b>应用程序通讯端口</b>，<b>实例集群通讯端口</b> <br />
     你可以在浏览器中打开<b>Web管理界面</b>通过浏览器快速管理RethinkDB<br/>
     应用程序(列如一个nodejs应用)可以通过<b>应用程序通讯端口</b>来执行查询操作<br/>
     当你启用集群模式时各个节点会使用<b>实例集群通讯端口<b/>通讯<br/><br/>
-    如果你启动集群实例时指定错端口则会发生'received invalid clustering header'提示
+    如果你启动集群实例时指定错端口则会发生'received invalid clustering header'提示<br/>
 </div>
