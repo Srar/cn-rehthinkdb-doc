@@ -30,8 +30,7 @@ var Pages = [
 			{ title: "RethinkDB中的表连接", path: "TableJoinsInRethinkDB.md" },
 			{ title: "RethinkDB中的Map-reduce", path: "MapReduceInRethinkDB.md" },
 			{ title: "Changefeeds", path: "Changefeeds.md" },
-			{ title: "Asynchronous connections", path: "Main.md" },
-			{ title: "Accessing HTTP APIs", path: "Main.md" },
+			{ title: "HTTP API", path: "HTTPAPI.md" },
 			{ title: "ReQL error types", path: "Main.md" },
 			{ title: "API command reference", path: "Main.md" },
 		]
