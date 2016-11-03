@@ -31,8 +31,8 @@ var Pages = [
 			{ title: "RethinkDB中的Map-reduce", path: "MapReduceInRethinkDB.md" },
 			{ title: "Changefeeds", path: "Changefeeds.md" },
 			{ title: "HTTP API", path: "HTTPAPI.md" },
-			{ title: "ReQL error types", path: "Main.md" },
-			{ title: "API command reference", path: "Main.md" },
+			{ title: "ReQL错误类型", path: "ReQLErrorTypes.md" },
+			// { title: "API文档", path: "Main.md" },
 		]
 	}
 ];
