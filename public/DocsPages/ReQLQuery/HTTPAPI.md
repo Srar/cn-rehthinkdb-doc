@@ -1,7 +1,7 @@
 # 外部访问API
 
 RethinkDB提供[r.http](https://www.rethinkdb.com/api/javascript/http/)可以从数据库直接访问外部。
-由于很多API会接受和返回JSON，Since many APIs accept and return JSON, RethinkDB is a convenient platform for manipulating and analyzing API data, both interactively and in running applications.
+由于许多API都接受并返回json，无论是交互交互或在运行中的程序用，RethinkDB都是处理API数据进行操作和分析的便捷平台。
 
 ## 基本使用
 来试一个非常简单的功能 - 访问网站. 把下面命令输入WebUI的`Data Explorer`并点击`run`(您也可以在应用程序里那么干)
