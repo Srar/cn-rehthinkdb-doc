@@ -92,7 +92,7 @@ distinct_lastnames_query.run(conn)
    Read about how this technology is implemented for more details.
 </div>
 
-## 懒查询(Laziness?)
+## 延迟加载
 
 ```
 # 获取`age`字段的5个记录
