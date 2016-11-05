@@ -26,7 +26,7 @@ RethinkDB默认支持数组内包含10万个元素，如果你想修改此限制
 
 ## RethinkDB特有类型
 * ___Databases___ 是 RethinkDB 数据库类型. 调用`typeof`时会返回`db`.
-* ___Tables___ 是 RethinkDB数据库表. 您可以通过它来增加，删除，修改，查询里面记录.ReQL当表索引可用时会使用索引列如`getAll`.
+* ___Tables___ 是 RethinkDB数据库表. 您可以通过它来增加，删除，修改，查询里面记录.当仅是`tables`时ReQL查询才会使用命令列如: `getAll`.
 * ___Streams___ 像一个数组，但是它会慢慢把数据加载。当返回流时会返回一个游标，游标会像指针一样指向结果。让你读取大量结果时不会一下子读取全部内容，而是像遍历数组一样，慢慢的取回下一行数据、
 流是只读的你不能拿来输入其他ReQL命令列如`delete`，`delete`.
 * ___Selections___ 类似表的子集举个例子当使用`filter`或`get`时会返回这个类型. 其中有三种Selection类型
