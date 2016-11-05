@@ -34,6 +34,17 @@ var Pages = [
 			{ title: "ReQL错误类型", path: "ReQLErrorTypes.md" },
 			// { title: "API文档", path: "Main.md" },
 		]
+	},
+	{
+		title: "RethinkDB数据模型",
+		root : "/DocsPages/DataModel/",
+		childs: [
+			{ title: "ReQL中的数据类型", path: "ReQLDataTypes.md" },
+			{ title: "Dates and times", path: ".md" },
+			{ title: "Binary objects",  path: ".md" },
+			{ title: "Geospatial queries", path: ".md" },
+			{ title: "Modeling relationships", path: ".md" },
+		]
 	}
 ];
 
