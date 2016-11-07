@@ -19,7 +19,6 @@ export default class MarkedownView extends Component {
 		$.get(this.props.url || this.props.route.url, function(response){
 			this.setState({ html: marked(response) });
 			$('pre code').each(function(i, block) {
-				console.log(i);
 				highlight.highlightBlock(block);
 			});
 		}.bind(this));
