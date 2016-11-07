@@ -41,7 +41,7 @@ var Pages = [
 		childs: [
 			{ title: "ReQL中的数据类型", path: "ReQLDataTypes.md" },
 			{ title: "日期与时间", path: "DatesAndTimes.md" },
-			{ title: "Binary objects",  path: ".md" },
+			{ title: "二进制对象",  path: "BinaryObjects.md" },
 			{ title: "Geospatial queries", path: ".md" },
 			{ title: "Modeling relationships", path: ".md" },
 		]
