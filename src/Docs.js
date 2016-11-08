@@ -42,7 +42,7 @@ var Pages = [
 			{ title: "ReQL中的数据类型", path: "ReQLDataTypes.md" },
 			{ title: "日期与时间", path: "DatesAndTimes.md" },
 			{ title: "二进制对象",  path: "BinaryObjects.md" },
-			{ title: "Geospatial queries", path: ".md" },
+			{ title: "地理位置查询", path: "GeospatialQueries.md" },
 			{ title: "Modeling relationships", path: ".md" },
 		]
 	}
