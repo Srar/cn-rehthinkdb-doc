@@ -43,7 +43,7 @@ var Pages = [
 			{ title: "日期与时间", path: "DatesAndTimes.md" },
 			{ title: "二进制对象",  path: "BinaryObjects.md" },
 			{ title: "地理位置查询", path: "GeospatialQueries.md" },
-			{ title: "Modeling relationships", path: ".md" },
+			{ title: "模型关系", path: "ModelingRelationships.md" },
 		]
 	}
 ];
