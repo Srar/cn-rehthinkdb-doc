@@ -45,6 +45,17 @@ var Pages = [
 			{ title: "地理位置查询", path: "GeospatialQueries.md" },
 			{ title: "模型关系", path: "ModelingRelationships.md" },
 		]
+	},
+	{
+		title: "ReQL实践",
+		root : "/DocsPages/ReQLPractice/",
+		childs: [
+			{ title: "优化查询性能", path: "OptimizingQueryPerformance.md" },
+			{ title: "探索ReQL命令", path: "DataExploration.md" },
+			{ title: "SQL转ReQL小抄",  path: "SQLToReQL.md" },
+			{ title: "ReQL最佳实践", path: "Cookbook.md" },
+			{ title: "实例项目", path: "ExampleProjects.md" },
+		]
 	}
 ];
 
