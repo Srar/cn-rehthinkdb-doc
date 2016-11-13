@@ -4,6 +4,7 @@
 ## 帮助的人 ##
 * [KBlackcn](https://github.com/zhouyiran2)
 * [yushijinhun](https://github.com/yushijinhun)
+* [manageryzy] (https://github.com/manageryzy)
 * [ustc-zzzz](https://github.com/ustc-zzzz)
 * [Mickeyxiami](https://github.com/Mickeyxiami)
 
