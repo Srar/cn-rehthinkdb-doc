@@ -68,7 +68,7 @@ Arrays与字符串将会按照字典顺序来排序，对象会在排序前转�
 
 这些顺序是由类型名字(`typeOf()`命令获取)排序决定的.
 
-在WebUI - Data Explorer中执行下面混合数据排序来直观了解:
+在Web界面 - Data Explorer中执行下面混合数据排序来直观了解:
 ```
 r.expr([
     {val: 1},

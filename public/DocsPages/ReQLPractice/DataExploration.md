@@ -1,6 +1,6 @@
 # 探索RethinkDB中您可能会用到的命令
 Akshay Chougule是一位生物学家他写了一篇关于如何实际使用[Unix中使用常见shell来在数据集中查询数据](http://datavu.blogspot.com/2014/08/useful-unix-commands-for-exploring-data.html).
-所以我们也打算写一篇类似的: 如何在 WebUI - Data Explorer即时使用ReQL来查询数据。
+所以我们也打算写一篇类似的: 如何在 Web界面 - Data Explorer即时使用ReQL来查询数据。
 
 在这里我们会使用[IMDb Top 250](http://www.imdb.com/chart/top)做为数据集来练手
 (当写这篇doc时候抓去top 250的时间是14-08-26,所以你现在去看估计数据有不同但是不要慌).IMDb仅提供了文本格式的数据，为了方便期间我们把数据转换成了JSON

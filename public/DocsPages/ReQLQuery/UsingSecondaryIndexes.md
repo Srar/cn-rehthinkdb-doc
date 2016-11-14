@@ -195,8 +195,8 @@ r.table("users").indexStatus("last_name").run(conn, callback)
 r.table("users").indexWait("last_name").run(conn, callback)
 ```
 
-## 使用WebUI操作索引
-WebUI支持创建，删除单键索引，你可以在`table`点击表列如`users`的`Secondary indexes`来管理索引
+## 使用Web界面操作索引
+Web界面支持创建，删除单键索引，你可以在`table`点击表列如`users`的`Secondary indexes`来管理索引
 
 ## 备注
 主键可以在ReQL支持的任何索引命令里使用

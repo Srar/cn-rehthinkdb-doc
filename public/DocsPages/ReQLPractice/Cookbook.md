@@ -17,7 +17,7 @@ r.dbCreate("blog").run(conn, function(err, result) {
 });
 ```
 
-另一种创建数据库的办法是使用RethinkDB WebUI. 您可以通过`http://HOST:8080`来访问WebUI. 在导航栏上点击_Tables_然后点击_Add Database_按钮.
+另一种创建数据库的办法是使用RethinkDB Web界面. 您可以通过`http://HOST:8080`来访问Web界面. 在导航栏上点击_Tables_然后点击_Add Database_按钮.
 
 ## 重命名数据库 ##
 
@@ -46,7 +46,7 @@ r.db("blog").tableCreate("posts").run(conn, function(err, result) {
 
 您也可以忽略`db`命令，这样RethinkDB会缺省默认选择`test`数据库
 
-另一种创建数据库的办法是使用RethinkDB WebUI. 您可以通过`http://HOST:8080`来访问WebUI. 在导航栏上点击_Tables_然后点击_Add Table_按钮.
+另一种创建数据库的办法是使用RethinkDB Web界面. 您可以通过`http://HOST:8080`来访问Web界面. 在导航栏上点击_Tables_然后点击_Add Table_按钮.
 
 ## 插入记录 ##
 
