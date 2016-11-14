@@ -56,6 +56,21 @@ var Pages = [
 			{ title: "ReQL最佳实践", path: "Cookbook.md" },
 			{ title: "实例项目", path: "ExampleProjects.md" },
 		]
+	},
+	{
+		title: "管理",
+		root : "/DocsPages/Administration/",
+		childs: [
+			{ title: "管理工具", path: "AdministrationTools.md" },
+			{ title: "标记, 分片, 复制", path: "ScalingShardingReplication.md" },
+			{ title: "帐号与账户权限", path: "PermissionsUserAccounts.md" },
+			{ title: "故障转移", path: "Failover.md" },
+			{ title: "备份数据", path: "BackupData.md" },
+			{ title: "系统表", path: "SystemTables.md" },
+			{ title: "版本迁移", path: "VersionMigration.md" },
+			{ title: "导入数据", path: "ImportingData.md" },
+			{ title: "第三方管理工具", path: "ThirdPartyAdminTools.md" },
+		]
 	}
 ];
 
