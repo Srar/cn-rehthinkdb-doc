@@ -62,7 +62,7 @@ var Pages = [
 		root : "/DocsPages/Administration/",
 		childs: [
 			{ title: "管理工具", path: "AdministrationTools.md" },
-			{ title: "标记, 分片, 复制", path: "ScalingShardingReplication.md" },
+			{ title: "标记, 分片, 副本", path: "ScalingShardingReplication.md" },
 			{ title: "帐号与账户权限", path: "PermissionsUserAccounts.md" },
 			{ title: "故障转移", path: "Failover.md" },
 			{ title: "备份数据", path: "BackupData.md" },
