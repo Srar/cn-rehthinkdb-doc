@@ -1,10 +1,10 @@
 # RethinkDB中文文档
-一个不完全准确基于朋友，同学与谷歌翻译的RethinkDB中文doc
+一个不完全准确基于朋友，同学与谷歌翻译RethinkDB中文文档
 
 ## 帮助的人 ##
 * [KBlackcn](https://github.com/zhouyiran2)
-* [yushijinhun](https://github.com/yushijinhun)
 * [manageryzy] (https://github.com/manageryzy)
+* [yushijinhun](https://github.com/yushijinhun)
 * [ustc-zzzz](https://github.com/ustc-zzzz)
 * [Mickeyxiami](https://github.com/Mickeyxiami)
 
