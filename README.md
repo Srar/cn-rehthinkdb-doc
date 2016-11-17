@@ -1,4 +1,4 @@
-## RehthinkDB-DOC ##
+# RethinkDB中文文档
 一个不完全准确基于朋友，同学与谷歌翻译的RethinkDB中文doc
 
 ## 帮助的人 ##
