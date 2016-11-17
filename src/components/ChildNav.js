@@ -23,7 +23,9 @@ class Nav extends Component {
 								<ul className="expanded">
 									{item.childs.map((child, childIndex) => {
 										return (
-											<li key={`docs-nav-item-${item.title}-${child.title}`}>
+											<li key={`docs-nav-item-${item.title}-${child.title}`} 
+											    style={child.style ? child.style : {}}
+												className={child.className ? child.className : ""}>
 												{/*<Link to={`${this.props.root || ""}${itemIndex}-${childIndex}`}>{child.title}</Link>*/}
 												<a href={`${this.props.root || ""}${itemIndex}-${childIndex}`}>{child.title}</a>
 											</li>
