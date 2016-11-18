@@ -67,7 +67,7 @@ var Pages = [
 			{ title: "故障转移", path: "Failover.md" },
 			{ title: "备份数据", path: "BackupData.md" },
 			{ title: "系统表", path: "SystemTables.md" },
-			{ title: "Current issues", path: "CurrentTssues.md", className: "nested" },
+			{ title: "Current issues", path: "CurrentIssues.md", className: "nested" },
 			{ title: "Statistics", path: "Statistics.md", className: "nested" },
 			{ title: "Jobs", path: "Jobs.md", className: "nested" },
 			{ title: "版本迁移", path: "VersionMigration.md" },
