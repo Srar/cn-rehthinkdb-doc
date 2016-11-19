@@ -7,7 +7,7 @@ import MenuIcon from '../public/DocsPages/images/icon-menu-white.png';
 import './assets/styles/styles.css';
 import './assets/styles/jekyll-github.css';
 
-import { getRouter as docsGetRouter } from "./Docs.js";
+import { getRouter as docsGetRouter } from "./components/DocsView.js";
 
 class App extends Component {
     render() {
@@ -27,7 +27,7 @@ class App extends Component {
 				</nav>
 
 				<Router onUpdate={() => window.scrollTo(0, 0)} history={browserHistory}>
-					{ docsGetRouter("/docs") }
+					{ docsGetRouter("/docs", require("./pages/RethinkDBDocs.json")) }
 					<Redirect from="/" to="docs" />
 				</Router>
 			</div>

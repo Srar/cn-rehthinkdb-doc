@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from "react-router";
 
-class Nav extends Component {
+class DocsNav extends Component {
 
 	constructor(props) {
 		super(props);
@@ -41,4 +40,4 @@ class Nav extends Component {
 	}
 }
 
-export default Nav;
+export default DocsNav;

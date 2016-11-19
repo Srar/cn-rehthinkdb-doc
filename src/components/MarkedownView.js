@@ -26,7 +26,6 @@ export default class MarkedownView extends Component {
 	}
 
 	render() {
-		console.log(this.props.route.url);
 		return (
 			<section className="docs-article">
 				<div className="docs markdown-view" dangerouslySetInnerHTML={{__html: this.state.html}}></div>
