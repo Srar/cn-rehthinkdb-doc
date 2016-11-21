@@ -67,5 +67,17 @@
       { "title": "导入数据", "path": "ImportingData.md" },
       { "title": "第三方管理工具", "path": "ThirdPartyAdminTools.md" }
     ]
+  },
+  {
+    "title": "部署",
+    "root" : "/DocsPages/Deployment/",
+    "childs": [
+      { "title": "开机自动启动", "path": "StartOnSystemStartup.md" },
+      { "title": "集群安全", "path": "SecuringYourCluster.md" },
+      { "title": "配置文件设置", "path": "ConfigurationFileSettings.md" },
+      { "title": "RethinkDB命令行参数", "path": "CommandLineOptions.md" },
+      { "title": "PaaS部署", "path": "DeployingWithPaaS.md" },
+      { "title": "第三方部署工具", "path": "Third-partyDeploymentTools.md" }
+    ]
   }
 ]
