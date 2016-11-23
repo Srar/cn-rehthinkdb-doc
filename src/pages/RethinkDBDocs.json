@@ -79,5 +79,14 @@
       { "title": "PaaS部署", "path": "https://www.rethinkdb.com/docs/paas/" },
       { "title": "第三方部署工具", "path": "Third-partyDeploymentTools.md" }
     ]
+  },
+  {
+    "title": "故障排除",
+    "root" : "/DocsPages/Troubleshooting/",
+    "childs": [
+      { "title": "异常恢复", "path": "CrashRecovery.md" },
+      { "title": "故障排除 FAQ", "path": "TroubleshootingFAQ.md" },
+      { "title": "内存需求", "path": "MemoryRequirements.md" }
+    ]
   }
 ]
