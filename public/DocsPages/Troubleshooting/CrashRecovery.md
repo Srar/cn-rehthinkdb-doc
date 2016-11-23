@@ -59,7 +59,7 @@ rethinkdb invoked oom-killer: gfp_mask=0x201da, order=0, oom_adj=0, oom_score_ad
 * 异常是否可以重现, 如何触发异常的.
 
 # 导出系统表
-在Web管理界面的Data Explorer中执行以下命令. 其会输出最多50行内容. 其中包括配置, 状态, 以及日志表.
+在Web管理界面的Data Explorer中执行以下命令. 其会输出最多50行内容. 其中包括各类配置, 状态, 以及日志表.
 
 ```javascript
 r.expr(["current_issues", "jobs", "stats", "server_config", "server_status",
