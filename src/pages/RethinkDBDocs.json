@@ -86,7 +86,7 @@
     "childs": [
       { "title": "异常恢复", "path": "CrashRecovery.md" },
       { "title": "故障排除 FAQ", "path": "TroubleshootingFAQ.md" },
-      { "title": "内存需求", "path": "MemoryRequirements.md" }
+      { "title": "内存使用", "path": "MemoryRequirements.md" }
     ]
   }
 ]
