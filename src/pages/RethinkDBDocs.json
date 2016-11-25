@@ -65,7 +65,7 @@
       { "title": "Jobs", "path": "SystemTables-Jobs.md", "className": "nested" },
       { "title": "版本迁移", "path": "VersionMigration.md" },
       { "title": "导入数据", "path": "ImportingData.md" },
-      { "title": "第三方管理工具", "path": "ThirdPartyAdminTools.md" }
+      { "title": "第三方管理工具", "path": "https://www.rethinkdb.com/docs/third-party-admin-tools/" }
     ]
   },
   {
@@ -77,7 +77,7 @@
       { "title": "RethinkDB配置文件", "path": "ConfigurationFileSettings.md" },
       { "title": "RethinkDB命令行参数", "path": "CommandLineOptions.md" },
       { "title": "PaaS部署", "path": "https://www.rethinkdb.com/docs/paas/" },
-      { "title": "第三方部署工具", "path": "Third-partyDeploymentTools.md" }
+      { "title": "第三方部署工具", "path": "https://www.rethinkdb.com/docs/deployment-tools/" }
     ]
   },
   {
@@ -87,6 +87,30 @@
       { "title": "异常恢复", "path": "CrashRecovery.md" },
       { "title": "故障排除 FAQ", "path": "TroubleshootingFAQ.md" },
       { "title": "内存使用", "path": "MemoryRequirements.md" }
+    ]
+  },
+  {
+    "title": "集成服务",
+    "root" : "/DocsPages/Integration/",
+    "childs": [
+      { "title": "订阅发布模式", "path": "Publish-subscribe.md" },
+      { "title": "集成 Elasticsearch", "path": "IntegratingElasticsearch.md" },
+      { "title": "集成 RabbitMQ", "path": "IntegratingRabbitMQ.md" },
+      { "title": "RethinkDB 与 Rails", "path": "RethinkDBRails.md" },
+      { "title": "第三方库", "path": "https://www.rethinkdb.com/docs/frameworks-and-libraries/" },
+      { "title": "编写RethinkDB库", "path": "WritingDrivers.md" }
+    ]
+  },
+  {
+    "title": "RethinkDB构架",
+    "root" : "/DocsPages/Architecture/",
+    "childs": [
+      { "title": "构架 FAQ", "path": "ArchitectureDetails.md" },
+      { "title": "一致性保证", "path": "ConsistencyGuarantees.md" },
+      { "title": "RethinkDB中的限制", "path": "LimitationsInRethinkDB.md" },
+      { "title": "稳定性报告", "path": "StabilityReport.md" },
+      { "title": "常见问题", "path": "FrequentlyAskedQuestions.md" },
+      { "title": "性能报告", "path": "PerformanceReport.md" }
     ]
   }
 ]
