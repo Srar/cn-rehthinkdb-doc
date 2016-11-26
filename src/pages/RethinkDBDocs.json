@@ -108,7 +108,7 @@
       { "title": "构架 FAQ", "path": "ArchitectureDetails.md" },
       { "title": "一致性保证", "path": "ConsistencyGuarantees.md" },
       { "title": "RethinkDB中的限制", "path": "LimitationsInRethinkDB.md" },
-      { "title": "稳定性报告", "path": "StabilityReport.md" },
+      { "title": "稳定性报告", "path": "https://www.rethinkdb.com/stability/" },
       { "title": "常见问题", "path": "FrequentlyAskedQuestions.md" },
       { "title": "性能报告", "path": "PerformanceReport.md" }
     ]
