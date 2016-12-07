@@ -14,7 +14,7 @@ class DocsNav extends Component {
 			return false;
 		}
 
-		if(path.substring(0, 7) == "http://" || path.substring(0, 8) == "https://") {
+		if(path.substring(0, 7) === "http://" || path.substring(0, 8) === "https://") {
 			return true;
 		}
 
@@ -33,7 +33,7 @@ class DocsNav extends Component {
 								<h1><a href="#">{item.title}</a></h1>
 								<ul className="expanded">
 									{item.childs.map((child, childIndex) => {
-										var display = child.display == undefined ? true : false;
+										var display = child.display === undefined ? true : false;
 										if(!display) {
 											return null;
 										}

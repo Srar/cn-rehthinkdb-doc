@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Route, IndexRoute} from 'react-router';
 import MarkedownView from "./MarkedownView";
-import $ from 'n-zepto';
 
 import DocsNav from "./DocsNav";
 
