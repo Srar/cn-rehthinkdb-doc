@@ -9,3 +9,6 @@
 * [Mickeyxiami](https://github.com/Mickeyxiami)
 
 > 顺序按照帮助次数排序
+
+## 参考资料
+* [腾讯云 TDSQL分布式数据库 文档](https://www.qcloud.com/document/product/237/1057)

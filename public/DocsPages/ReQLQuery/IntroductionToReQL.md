@@ -195,7 +195,7 @@ r.table('authors').filter(lambda author:
     有关此查询的几个注意事项：
     <ul>
         <li>在应用程序完成组合查询后只需要调用一次`run`，记住只要一次</li>
-        <li>You can also perform this query using the inner_join command.</li>
+        <li>您同样可以使用`inner_join`命令来完成上述查询.</li>
     </ul>
 </div>
 
