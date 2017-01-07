@@ -7,7 +7,7 @@ RethinkDB支持已下数据结构的索引:
 * 基于单个字段的值的___单键索引___
 * 基于多个字段的值的___复合索引___
 * 基于数组的___多键索引___
-* Indexes based on arbitrary expressions.
+* 基于表达式的索引
 
 <p>
     <img src="/DocsPages/images/secondary-indexes.png" class="api_command_illustration">
