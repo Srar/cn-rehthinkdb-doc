@@ -4,13 +4,13 @@ Akshay Chougule是一位生物学家他写了一篇关于如何实际使用[Unix
 
 在这里我们会使用[IMDb Top 250](http://www.imdb.com/chart/top)做为数据集来练手
 (当写这篇doc时候抓去top 250的时间是14-08-26,所以你现在去看估计数据有不同但是不要慌).IMDb仅提供了文本格式的数据，为了方便期间我们把数据转换成了JSON
-: [http://libs.x-speed.cc/top-250-ratings.json](http://libs.x-speed.cc/top-250-ratings.json)
+: [http://oss.x-speed.cc/top-250-ratings.json](http://oss.x-speed.cc/top-250-ratings.json)
 
 由于上述说的top-250-ratings.json是放在网上的，所以你做的仅仅只需要创建表然后通过[http](https://www.rethinkdb.com/docs/http)来导入数据，
 在Data Explorer中执行以下命令即可:
 ```
 r.tableCreate('movies');
-r.table('movies').insert(r.http('http://libs.x-speed.cc/top-250-ratings.json'))
+r.table('movies').insert(r.http('http://oss.x-speed.cc/top-250-ratings.json'))
 ```
 Data Explorer应该会返回这些信息:
 ```
