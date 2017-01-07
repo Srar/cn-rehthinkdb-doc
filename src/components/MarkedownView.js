@@ -7,14 +7,27 @@ export default class MarkedownView extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			html: "Loading..."
+			html: "Loading...",
+			lastUrl: null
 		};
 	}
 
-	componentDidMount() {
-		if(this.props.url == null && this.props.route.url == null) {
-			return
+
+	loadMarkdown() {
+		var url = this.props.url || this.props.route.url;
+		if(url === undefined || url === null) {
+			url = "";
+			return;
 		}
+
+		if(this.state.lastUrl === url) {
+			return;
+		}
+
+		this.setState({
+			html: "Loading...",
+			lastUrl: url
+		});
 
 		$.get(this.props.url || this.props.route.url, function(response){
 			this.setState({ html: marked(response) });
@@ -22,10 +35,10 @@ export default class MarkedownView extends Component {
 				highlight.highlightBlock(block);
 			});
 		}.bind(this));
-		this.forceUpdate();
 	}
 
 	render() {
+		this.loadMarkdown();
 		return (
 			<section className="docs-article">
 				<div className="docs markdown-view" dangerouslySetInnerHTML={{__html: this.state.html}}></div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router'
 
 class DocsNav extends Component {
 
@@ -43,7 +44,13 @@ class DocsNav extends Component {
 											    style={child.style ? child.style : {}}
 												className={child.className ? child.className : ""}>
 												{/*<Link to={`${this.props.root || ""}${itemIndex}-${childIndex}`}>{child.title}</Link>*/}			
-												<a href={_this.isUrl(child.path) ? child.path : `${this.props.root || ""}${itemIndex}-${childIndex}`}>{child.title}</a>
+												{/*<a href={_this.isUrl(child.path) ? child.path : `${this.props.root || ""}${itemIndex}-${childIndex}`}>{child.title}</a>*/ }
+												
+												{	
+													_this.isUrl(child.path) ? 
+													<a href={child.path}>{child.title}</a>:
+													<Link to={`${this.props.root || ""}${itemIndex}-${childIndex}`}>{child.title}</Link>
+												}
 											</li>
 										)
 									})}

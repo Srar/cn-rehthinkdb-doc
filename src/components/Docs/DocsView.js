@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Route, IndexRoute} from 'react-router';
-import MarkedownView from "./MarkedownView";
+import MarkedownView from "../MarkedownView";
 
 import DocsNav from "./DocsNav";
 
@@ -41,6 +41,7 @@ export function getRouter(path, docsList) {
 					)
 				});
 			})}
+	
 		</Route>
 	)
 }
