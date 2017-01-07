@@ -1,4 +1,4 @@
-# System statistics table
+# 系统表 - statistics
 `stats`表RethinkDB 1.16中添加的系统表之一.
 它提供有关实例读/写吞吐量, 客户端连接和内存使用情况的统计信息.
 

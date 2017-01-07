@@ -1,4 +1,4 @@
-# System jobs table
+# 系统表 - jobs
 `jobs`表RethinkDB 1.16中添加的系统表之一.
 它提供有关在RethinkDB群集中运行的任务信息, 包括查询, 数据压缩和创建索引, 并允许您通过从表中删除任务来终止任务.
 

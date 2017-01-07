@@ -1,4 +1,4 @@
-# System current issues table
+# 系统表 - current issues
 `current issues`表RethinkDB 1.16中添加的[系统表](/docs/5-5)之一.
 这个表是只读的. 当集群内无问题时此表为空.
 
