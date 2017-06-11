@@ -8,7 +8,7 @@ RethinkDB提供[r.http](https://www.rethinkdb.com/api/javascript/http/)可以从
 ```
 r.http('www.baidu.com')
 ```
-`r.http`命令会让数据库直接给`www.baidu.com`发送请求并返回html源码
+`r.http`命令会让RethinkDB请求`www.baidu.com`然后返回其响应的数据.
 
 ## 访问JSON API
 现在来访问一个实际的JSON API。 在例子中我们会使用Github的API来告诉我们那些大触关注了RethinkDB
@@ -16,7 +16,7 @@ r.http('www.baidu.com')
 r.http('https://api.github.com/repos/rethinkdb/rethinkdb/stargazers')
 ```
 这个查询调用了Github API并且API返回了一个<JSON></JSON>数组。 
-由于RethinkDB原生就可以操作JSON所以您可以直接使用ReQL对`r.http`进行操作，就像在表里查询一样。
+由于RethinkDB原生就可以操作JSON所以您可以直接使用ReQL对`r.http`返回的数据进行操作，就像在表里查询一样。
 
 假设我想查看Github API返回的数据数量
 ```
@@ -29,7 +29,7 @@ r.http('https://api.github.com/repos/rethinkdb/rethinkdb/stargazers')
 ```
 
 ## 存储并enriching API数据
-由于你可能想对数据进行更多才做，那么你最好把API数据导入进数据库。那么我们来创建一个`stargazers`表将关注的人存储进去。
+如果您想对数据进行更多的操作，那么你最好把数据导入进数据库。那么我们来创建一个`stargazers`表并将关注的人存储进去。
 ```
 r.tableCreate('stargazers');
 r.table('stargazers').insert(
@@ -51,7 +51,8 @@ r.table('stargazers').orderBy(r.desc('followers'))
 
 ## 分页
 
-上面API仅返回了30个RethinkDB关注者，然而RethinkDB关注着有上万个。对于大量数据很多网站都会使用分页来分批返回数据Github也一样。
+上面API仅返回了30个RethinkDB关注者，然而RethinkDB关注者有上万个。
+对于大量数据很多网站都会使用分页来分批返回数据Github也一样。
 这时候就要说`r.http`的分页功能了
 ```
 r.http('https://api.github.com/repos/rethinkdb/rethinkdb/stargazers',
