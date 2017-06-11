@@ -93,7 +93,7 @@
     "title": "集成服务",
     "root" : "/DocsPages/Integration/",
     "childs": [
-      { "title": "订阅发布模式", "path": "Publish-subscribe.md" },
+      { "title": "订阅发布模式", "path": "PublishSubscribe.md" },
       { "title": "集成 Elasticsearch", "path": "IntegratingElasticsearch.md" },
       { "title": "集成 RabbitMQ", "path": "IntegratingRabbitMQ.md" },
       { "title": "RethinkDB 与 Rails", "path": "RethinkDBRails.md" },
