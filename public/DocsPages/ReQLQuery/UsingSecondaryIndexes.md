@@ -109,7 +109,7 @@ RethinkDB内会把单键索引和复合索引视为同一个索引类型，复�
 ___创建___
 
 假设每个文章都有一个`tags`字段数组，那么表结构应该是这样的
-```
+```json
 {
     title: "...",
     content: "...",
@@ -159,18 +159,17 @@ r.table("users").indexCreate("activities", r.row("hobbies").add(r.row("sports"))
     {multi: true}).run(conn, callback)
 ```
 
-## Use a multi index and a mapping function to speed getAll/contains
-If your program frequently executes a getAll followed by a contains, that operation can be made more efficient by creating a compound multi index using a mapping function on the field that contains the list.
-
-```
-// Create the index
+## 使用多键索引与mapping函数来加速getAll/contains查询
+如果您的程序频繁使用`getAll`, `contains`, 那么创建多键索引并对字段使用mapping函数可以提高查询效率.
+```javascript
+// 创建索引
 r.table("users").indexCreate("userEquipment", function(user) {
     return user("equipment").map(function(equipment) {
         return [ user("id"), equipment ];
     });
 }, {multi: true}).run(conn, callback);
 
-// Query equivalent to:
+// 同等查询
 // r.table("users").getAll(1).filter(function (user) {
 //     return user("equipment").contains("tent");
 // });
