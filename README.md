@@ -1,6 +1,9 @@
 # RethinkDB中文文档
 一个不完全准确基于朋友，同学与谷歌翻译RethinkDB中文文档
 
+## 文档地址 ##
+[https://rethinkdb.x-speed.cc/](https://rethinkdb.x-speed.cc/) [魔门云](https://www.cachemoment.com/)提供CDN
+
 ## 帮助的人 ##
 * [KBlackcn](https://github.com/zhouyiran2)
 * [manageryzy] (https://github.com/manageryzy)
@@ -11,4 +14,5 @@
 > 顺序按照帮助次数排序
 
 ## 参考资料
+* 新概念英语
 * [腾讯云 TDSQL分布式数据库 文档](https://www.qcloud.com/document/product/237/1057)

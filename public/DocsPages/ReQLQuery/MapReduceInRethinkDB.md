@@ -6,3 +6,234 @@
  <p>
     <img src="/DocsPages/images/map-reduce.png" class="api_command_illustration">
 </p>
+
+RethinkDB中完成Map-reduce操作通常有两或三步:
+* __group__: 将元素分成多个组(可选).
+* __map__: 在组内再将元素过滤细分并放入新组.
+* __reduce__: 将__map__细分的组内值聚合为单个值.
+
+Some other map-reduce implementations, like Hadoop’s, use the mapping step to perform grouping as well; RethinkDB’s implementation explicitly separates them. This is sometimes referred to as “group-map-reduce,” or GMR. RethinkDB distributes GMR queries over tables and shards efficiently. You write GMR queries with the group, map and reduce commands, although as we’ll see in our examples, many ReQL commands compile to GMR queries behind the scenes—many common map-reduce cases can be accomplished in one or two lines of ReQL.
+
+## 简单示例
+假设您有一个正在运行的博客, 并且您想获取这个博客内全部的文章数量. 那么使用map-reduce来完成查询会有以下步骤:
+* __map__: 将每个文章转换为数字`1`.
+* __reduce__: 将每个文章的数字累加.
+> 这个示例不需要`group`步骤
+
+Blog数据库包含一个`posts`表其内部包含博客的全部文章. 下面将展示`posts`表内的一条记录作为示例:
+
+```json
+{
+    "id": "7644aaf2-9928-4231-aa68-4e65e31bf219"
+    "title": "The line must be drawn here"
+    "content": "This far, no further! ..."
+    "category": "Fiction"
+}
+```
+
+首先我们执行`map`步骤, 将每个文章转换为`1`:
+
+```javascript
+r.db("blog").table("posts").map(function(post) {
+	return 1;
+})
+```
+
+然后我们执行`reduce`步骤, 将刚刚的`map`结果累加:
+
+```javascript
+r.db("blog").table("posts").map(function(post) {
+	return 1
+}).reduce(function(a, b) {
+  return a.add(b);
+})
+```
+
+在更多情况下您可以使用`map-reduce`来进行查询, 不过ReQL内提供了更简单的聚合函数. 
+对于这个示例来说我们也可以使用`count`来达到同样的效果:
+
+```javascript
+r.db("blog").table("posts").count().run(conn)
+```
+
+RethinkDB目前有5个常用的聚合函数: `count`, `sum`, `avg`, `min`和`max`.
+在实际操作中您可以使用上述5个聚合函数来代替`map`与`reduce`操作.
+
+## __group__操作示例
+还是上一个示例的Blog数据库, 不过这次我想找出来每个分类(`category`字段)中文章有多少个, 那么使用map-reduce来完成查询会有以下步骤:
+* __group__: 基于文章分类进行分组.
+* __map__ 将每个分组内转换为数字`1`.
+* __reduce__: 将每个分组数字累加.
+
+首先对posts表进行`group`操作
+
+```javascript
+r.db("blog").table("posts").group("category")
+```
+
+`group`操作会对相同文章分类的文章分为一个组, 接下来就和刚刚一样把分组内的全部元素转为数字`1`:
+
+```javascript
+r.db("blog").table("posts").group("category").map(function(post) {
+	return 1;
+})
+```
+
+接着我们使用`reduce`操作来把各分组的元素累加, 这样就能获得每个分类的总文章数量了:
+
+```javascript
+r.db("blog").table("posts").group("category").map(function(post) {
+	return 1
+}).reduce(function(a, b) {
+  return a.add(b);
+})
+```
+
+当然我们也可以使用`group`分组函数和`count`函数来简化上述操作:
+```javascript
+r.table("posts").group("category").count().run(conn)
+```
+
+## 复杂示例
+这个示例是来自[MongoDB](https://docs.mongodb.com/manual/tutorial/map-reduce-examples/)的示例.
+想象下有个订单`orders`表, 里面每个记录结构是这样:
+
+```json
+{
+    "customer_id":  "cs11072",
+    "date": r.time(2014, 27, 2, 12, 13, 09, '-07:00'),
+    "id": 103,
+    "items": [
+        {
+            "price": 91,
+            "quantity": 1,
+            "item_id":  "sku10491"
+        } ,
+        {
+            "price": 9,
+            "quantity": 3,
+            "item_id":  "sku14667"
+        } ,
+        {
+            "price": 37 ,
+            "quantity": 3,
+            "item_id":  "sku16857"
+        }
+    ],
+    "total": 229
+}
+```
+
+首先我们返回每个客户全部订单价格总计. 由于每个订单的总价已经计算过并存放在`total`字段所以我们可以直接来使用聚合函数来查询:
+
+```javascript
+r.table("orders").group("customer_id").sum("total")
+```
+
+不过有个更复杂的需求来了: 我们需要计算订单内商品的每个平均数量以及总共数量.
+对于这个需求我们可以使用[concat_map](https://www.rethinkdb.com/api/python/concat_map)函数并配合`map`操作来完成.
+首先我们想要拿出全部订单中商品以及商品ID, 并且我们会增加一个`count`字段并标其值为`1`, 然后和在博客示例中一样使用`map`来遍历全部订单商品:
+
+```javascript
+r.table("orders").concatMap(function(order){
+  return order("items").map(function(item){
+    return {
+      "item_id": item("item_id"),
+      "quantity": item("quantity"),
+      "count": 1
+    }
+  })
+})
+```
+
+`map`函数是用来遍历每个订单的全部商品并返回一个列表, 列表内包含3个字段: `item_id`, `quantity`和`count`.
+
+现在我们对`item_id`字段进行`group`操作, 再使用`reduce`来累加商品数量以及记录商品项总数:
+
+```javascript
+r.table("orders").concatMap(function(order){
+  return order("items").map(function(item){
+    return {
+      "item_id": item("item_id"),
+      "quantity": item("quantity"),
+      "count": 1
+    }
+  })
+}).group("item_id").reduce(function(left, right) {
+  return {
+    "item_id": left("item_id"),
+    "quantity": left("quantity").add(right("quantity")),
+    "count": left("count").add(right("count"))
+  }
+})
+```
+
+最后我们使用[ungroup](https://www.rethinkdb.com/api/python/ungroup/)来将已经分组的数据放进对象数组中.
+The `group` field will be the item ID for each group; the `reduction` field will have all the items from the `concat_map` function that belong to each group. Then we’ll use `map` once more to iterate through that array, computing the average on this pass.
+
+```javascript
+r.table("orders").concatMap(function(order){
+  return order("items").map(function(item){
+    return {
+      "item_id": item("item_id"),
+      "quantity": item("quantity"),
+      "count": 1
+    }
+  })
+}).group("item_id").reduce(function(left, right) {
+  return {
+    "item_id": left("item_id"),
+		"quantity": left("quantity").add(right("quantity")),
+		"count": left("count").add(right("count"))
+  }
+}).ungroup().map(function(group) {
+   return {
+    "item_id": group("group"),
+		"quantity": group("reduction")("quantity"),
+		"avg": group("reduction")("quantity").div(group("reduction")("count"))
+  }
+})
+```
+
+处理后的结果如下:
+
+```json
+[
+    {
+        "avg": 3.3333333333333,
+        "quantity": 20,
+        "item_id": "sku10023"
+    },
+    {
+        "avg": 2.2142857142857,
+        "quantity": 31,
+        "item_id": "sku10042"
+    },
+    ...
+]
+```
+
+## GMR如何执行查询的
+
+RethinkDB的GMR查询会尽可能的使用多个分片与多个CPU核心来达到并行化目的.
+While this allows them to execute efficiently, it’s important to keep in mind that the reduce function is not called on the elements of its input stream from left to right. It’s called on either the elements of the stream in any order or on the output of previous calls to the function.
+
+Here is an example of an incorrect way to write the previous grouped map-reduce query, simply incrementing the first value passed to the reduction function:
+
+```python
+# Incorrect!
+r.table('posts').group(lambda post: post['category']).map(
+    lambda post: 1).reduce(lambda a, b: a + 1).run(conn)
+```
+
+Suppose we have ten documents in a single category in a sharded table. Four of the documents are on shard 1; six are on shard 2. When the incorrect query is executed, this is its path:
+
+The number of documents on shard 1 is computed. The query returns the value `4` for the shard.
+The number of documents on shard 2 is computed. The query returns the value `6` for the shard.
+The final reduction step is executed to combine the values of the two shards. Instead of computing `4 + 6`, the query executes `4 + 1`.
+
+> Be careful! Make sure your reduction function doesn’t assume the reduction step executes from left to right!
+
+## 了解更多
+如您想了解更多关于map-reduce, 可以访问[map-reduce维基百科介绍](http://en.wikipedia.org/wiki/MapReduce).
+
