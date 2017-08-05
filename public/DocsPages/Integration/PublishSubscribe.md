@@ -5,14 +5,18 @@
 
 我们目前做了一个小型订阅发布模式JavaScript库: [repubsub](https://github.com/rethinkdb/example-pubsub/tree/master/javascript)
 
-<div class="infobox "><p>If you haven’t read the <a href="/docs/changefeeds/javascript/">article on changefeeds</a> yet, start there! You can subscribe to notifications on tables and queries with changefeeds alone, without using publish-subscribe. If you’d like to see how to implement a message queue with topics using changefeeds, read on!</p>
+<div class="infobox ">
+您可以使用<a href="/#/Docs/2-6">changefeeds</a>单独订阅表或记录的更新通知.
+如果您希望了解如何使用changefeeds来订阅带有队列与Topics模式的订阅发布请继续阅读文章.
 </div>
 
 这篇文章将会为您解释如何使用repubsub同时how it’s implemented on top of changefeeds. 
 如果您的项目需要异步广播通知, this may be a good fit.
 
 ## 订阅发布
-There are different publish-subscribe variations, so here we’ll describe the type using a central topic exchange. In this model, publishers connect to the central exchange and broadcast a message with a given topic. When subscribers connect, they notify the exchange about what kinds of messages they’re interested in. The exchange is then responsible for filtering messages.
+由于订阅发布模式有着各样模式, 所以在这篇文章中将针对Topic模式进行说明.
+在Topic模式中消息发布者可以连接至Exchange并发布带有特定Topic的消息. 当订阅者连接至Exchange并告诉Exchange自己对那些消息感兴趣,
+之后Exchange会过滤出相关消息并发送给订阅者.
 
 ## 使用repubsub
 Repubsub基于RethinkDB实现了一个简单的订阅发布, 其使用了ReQL作为过滤正是因为此大多数编程语言都可以使用. 
@@ -132,7 +136,7 @@ var aboutBatman = function(topic){
 ```
 
 ## 尝试repubsub demo
-示例文档包含[演示脚本](https://github.com/rethinkdb/example-pubsub/blob/master/javascript/demo.js'), 并带有上述三种订阅发布模式. 该脚本同时实现每个模式类型的发布者和订阅者. 您可以使用此脚本来尝试多个发布者和多个订阅者来测试它并了解工作原理.
+示例文档包含[演示脚本](https://github.com/rethinkdb/example-pubsub/blob/master/javascript/demo.js'), 演示了3种使用Topic模式的示例. 该脚本同时实现每个模式类型的发布者和订阅者. 您可以使用此脚本来尝试多个发布者和多个订阅者来测试它并了解工作原理.
 
 您可以将演示脚本运行在不同的终端内, 这样又便于很好的查看输出.
 
@@ -144,7 +148,8 @@ var aboutBatman = function(topic){
 * 当信息被发送至`topic`时会查找相同的记录如果有相同记录则覆盖, 没有则新建.
 * 订阅者在`Exchange`表上创建changefeed来用作过滤以及查询.
 
-需要注意的是我们并不用关心记录是如何存储在表内的. 我们只需要创建以及更新文档.because that forces RethinkDB to create a change notification. These change notifications are the messages we want to send to subscribers. Ultimately, the table ends up with lots of documents that have whatever the last message happened to be inside them. But at no point do we read those documents directly as a subscriber. This is also why we update the updated_on field, so that even if the document’s payload hasn’t changed, the document as a whole will change and a notification will be generated.
+需要注意的是我们并不用关心记录是如何存储在表内的. 我们只需要创建以及更新文档.
+because that forces RethinkDB to create a change notification. These change notifications are the messages we want to send to subscribers. Ultimately, the table ends up with lots of documents that have whatever the last message happened to be inside them. But at no point do we read those documents directly as a subscriber. This is also why we update the updated_on field, so that even if the document’s payload hasn’t changed, the document as a whole will change and a notification will be generated.
 
 The entire query on the exchange is:
 
