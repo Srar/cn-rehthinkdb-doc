@@ -16,3 +16,4 @@
 ## 参考资料
 * 新概念英语
 * [腾讯云 TDSQL分布式数据库 文档](https://www.qcloud.com/document/product/237/1057)
+* [TiDB中文文档](https://github.com/pingcap/docs-cn)
