@@ -27,21 +27,29 @@ export function getRouter(path, docsList) {
 	PathRoot = path + "/";
 	Pages    = docsList;
 
+	var renderDocuments = [];
+
+	Pages.forEach(function(root, rootIndex) {
+		if(rootIndex === 0) return null;
+		return root.childs.forEach((renderDocument, renderDocumentIndex) => {
+            renderDocuments.push(<Route
+                path={`${rootIndex}-${renderDocumentIndex}`}
+                component={MarkedownView} 
+                markdownFileUrl={root.root + renderDocument.path} />);	
+            
+            if(renderDocument.router != undefined) {
+                renderDocuments.push(<Route
+                    path={`${renderDocument.router}`}
+                    component={MarkedownView} 
+                    markdownFileUrl={root.root + renderDocument.path} />);	
+            }
+		});
+	}, this);
+
 	return (
 		<Route path={path} component={DocsView}>
 			<IndexRoute component={MarkedownView} url={Pages[0].index} />
-			{Pages.map((page, pageIndex) => {
-				if(pageIndex === 0) return null;
-				return page.childs.map((child, childIndex) => {
-					return (
-						<Route
-							path={`${pageIndex}-${childIndex}`}
-							url={page.root + child.path}
-							component={MarkedownView} />
-					)
-				});
-			})}
-	
+            {renderDocuments}
 		</Route>
 	)
 }

@@ -1,7 +1,7 @@
 # RethinkDB 30秒快速入门
 
 <div class="infobox">
-    开始之前确保你已经 <a href="/docs/1-0">安装RethinkDB</a>.
+    开始之前确保你已经 <a href="/#/Docs/1-0">安装RethinkDB</a>.
 </div>
 
 <p>
@@ -53,5 +53,5 @@ r.table('tv_shows').filter(r.row('episodes').gt(100))
 
 ## 下一步
 
-恭喜你已经了解了基本操作！现在可以去看一下10分钟指南，通过指南你可以了解一些基本命令并能知道应用中如何使用RehtinkDB.
+恭喜你已经了解了基本操作！现在可以去看一下[10分钟快速了解](/#/Docs/2-0)，通过这篇文章你可以了解一些基本命令并能知道应用中如何使用RehtinkDB.
 

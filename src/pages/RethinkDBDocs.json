@@ -9,9 +9,16 @@
     "childs": [
       { "title": "安装 RethinkDB", "path": "InstallTheServer.md" },
       { "title": "30秒快速入门", "path": "Quickstart.md" },
-      { "title": "Install client drivers", "path": "Main.md" },
+      { "title": "安装RethinkDB库", "path": "InstallClientDrivers.md" },
       { "title": "开始使用 RehthinkDB", "path": "StartARethinkDBServer.md" },
-      { "title": "BuildingRethinkDBFromSource", "path": "InstallTheServerChilds/BuildingRethinkDBFromSource.md", "display": false }
+
+
+      { "title": "Install From Source", "router": "install/source", "path": "Install/InstallFromSource.md", "display": false },
+      
+      { "title": "Drivers Javascript", "router": "drives/javascript","path": "DriversChilds/javascript.md", "display": false },
+      { "title": "Drivers Ruby", "router": "drives/ruby","path": "DriversChilds/ruby.md", "display": false },
+      { "title": "Drivers Python", "router": "drives/python","path": "DriversChilds/python.md", "display": false },
+      { "title": "Drivers Java", "router": "drives/java","path": "DriversChilds/java.md", "display": false }
     ]
   },
   {

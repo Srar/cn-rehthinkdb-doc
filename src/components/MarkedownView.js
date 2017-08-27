@@ -14,7 +14,7 @@ export default class MarkedownView extends Component {
 
 
 	loadMarkdown() {
-		var url = this.props.url || this.props.route.url;
+		var url = this.props.markdownFileUrl || this.props.route.markdownFileUrl;
 		if(url === undefined || url === null) {
 			url = "";
 			return;
@@ -29,7 +29,7 @@ export default class MarkedownView extends Component {
 			lastUrl: url
 		});
 
-		$.get(this.props.url || this.props.route.url, function(response){
+		$.get(url, function(response){
 			this.setState({ html: marked(response) });
 			$('pre code').each(function(i, block) {
 				highlight.highlightBlock(block);

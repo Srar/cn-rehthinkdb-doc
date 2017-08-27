@@ -11,25 +11,25 @@
                 </a>
             </li>
             <li>
-                <a href="https://www.rethinkdb.com/docs/install/ubuntu/osx/">
+                <a href="https://www.rethinkdb.com/docs/install/osx/">
                     <img src="/DocsPages/images/system-icons/osx.png">
                     <p class="name">macOS</p>
                 </a>
             </li>
             <li>
-                <a href="https://www.rethinkdb.com/docs/install/ubuntu/centos/">
+                <a href="https://www.rethinkdb.com/docs/install/centos/">
                     <img src="/DocsPages/images/system-icons/centos.png">
                     <p class="name">CentOS</p>
                 </a>
             </li>
             <li>
-                <a href="https://www.rethinkdb.com/docs/install/ubuntu/debian/">
+                <a href="https://www.rethinkdb.com/docs/install/debian/">
                     <img src="/DocsPages/images/system-icons/debian.png">
                     <p class="name">Debian</p>
                 </a>
             </li>
             <li>
-                <a href="https://www.rethinkdb.com/docs/install/ubuntu/windows/">
+                <a href="https://www.rethinkdb.com/docs/install/windows/">
                     <img src="/DocsPages/images/system-icons/windows.png">
                     <p class="name">Windows</p>
                 </a>
@@ -46,25 +46,25 @@
                 </a>
             </li>
             <li>
-                <a href="https://www.rethinkdb.com/docs/install/arch/opensuse/">
+                <a href="https://www.rethinkdb.com/docs/install/opensuse/">
                     <img src="/DocsPages/images/system-icons/opensuse.png">
                     <p class="name">openSUSE</p>
                 </a>
             </li>
             <li>
-                <a href="https://www.rethinkdb.com/docs/install/arch/fedora/">
+                <a href="https://www.rethinkdb.com/docs/install/fedora/">
                     <img src="/DocsPages/images/system-icons/fedora.png">
                     <p class="name">Fedora</p>
                 </a>
             </li>
             <li>
-                <a href="https://www.rethinkdb.com/docs/install/arch/mint/">
+                <a href="https://www.rethinkdb.com/docs/install/mint/">
                     <img src="/DocsPages/images/system-icons/mint.png">
                     <p class="name">Linux Mint</p>
                 </a>
             </li>
             <li>
-                <a href="https://www.rethinkdb.com/docs/install/arch/    raspbian/">
+                <a href="https://www.rethinkdb.com/docs/install/raspbian/">
                     <img src="/DocsPages/images/system-icons/raspbian.png">
                     <p class="name">Raspbian</p>
                 </a>
@@ -91,7 +91,7 @@ ___源码编译___
 如果你的平台不在已构建列表内，那么你可能需要从源码编译安装RethinkDB. 
 在大多数Linux下你应该可以编译安装成功. 
 
-[点击这里获取源码编译安装指南.](/#/Docs/1-4)
+[点击这里获取源码编译安装指南.](/#/Docs/install/source)
 
 
 ___历史版本___
