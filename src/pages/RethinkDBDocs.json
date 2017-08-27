@@ -10,7 +10,8 @@
       { "title": "安装 RethinkDB", "path": "InstallTheServer.md" },
       { "title": "30秒快速入门", "path": "Quickstart.md" },
       { "title": "Install client drivers", "path": "Main.md" },
-      { "title": "开始使用 RehthinkDB", "path": "StartARethinkDBServer.md" }
+      { "title": "开始使用 RehthinkDB", "path": "StartARethinkDBServer.md" },
+      { "title": "BuildingRethinkDBFromSource", "path": "InstallTheServerChilds/BuildingRethinkDBFromSource.md", "display": false }
     ]
   },
   {
