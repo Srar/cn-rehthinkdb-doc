@@ -48,7 +48,7 @@ export function getRouter(path, docsList) {
 
 	return (
 		<Route path={path} component={DocsView}>
-			<IndexRoute component={MarkedownView} url={Pages[0].index} />
+			<IndexRoute component={MarkedownView} markdownFileUrl={Pages[0].index} />
             {renderDocuments}
 		</Route>
 	)
