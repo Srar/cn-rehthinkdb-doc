@@ -1,12 +1,12 @@
-# Ten-minute guide with RethinkDB and JavaScript
+# 10分钟使用JavaScript来快速入门RethinkDB
 
 
 <div class="infobox ">
    <p><strong>开始之前:</strong></p>
    <ul>
-      <li>确保你已经<a href="/docs/1-0">安装RethinkDB</a>—安装RethinkDB只需1分钟!</li>
-      <li>确保你已经<a href="/docs/install-drivers/javascript/"></a>安装Javasciprt依赖.</li>
-      <li>已经阅读完<a href="/docs/1-1">30秒快速入门</a>.</li>
+      <li>确保你已经<a href="/#/Docs/1-0">安装RethinkDB</a>—安装RethinkDB只需1分钟!</li>
+      <li>确保你已经<a href="/#/Docs/drives/javascript">安装JavaSciprt RethinkDB库</a>.</li>
+      <li>已经阅读完<a href="/#/Docs/1-1">30秒快速入门</a>.</li>
    </ul>
 </div>
 
@@ -16,7 +16,7 @@
 
 # 启动RethinkDB
 
-如你不知道如何启动, 请阅读[30秒快速入门](/docs/1-1).
+如你不知道如何启动, 请阅读[30秒快速入门](/#/Docs/1-1).
 
 ## 导入依赖
 
@@ -34,8 +34,9 @@ r = require('rethinkdb');
 
 ## 打开一个连接
 
-当启动RethinkDB时, RethinkDB会开启一个___应用程序通讯端口___(默认28015)来让应用程序连接, 我们来连接这个端口
-```
+当启动RethinkDB时, RethinkDB会开启一个___应用程序通讯端口___(默认28015)来让应用程序连接, 我们来连接这个端口:
+
+```javascript
 var connection = null;
 r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
     if (err) throw err;
@@ -46,15 +47,17 @@ r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
 
 ## 创建新表
 
-一般来说RethinkDB会默认创建一个`test`数据库，我们在这个数据库中创建一个`authors`表:
-```
+一般来说RethinkDB会默认有一个`test`数据库，我们在这个数据库中创建一个`authors`表:
+
+```javascript
 r.db('test').tableCreate('authors').run(connection, function(err, result) {
     if (err) throw err;
     console.log(JSON.stringify(result, null, 2));
 })
 ```
-结果:
-```
+
+返回:
+```json
 {
     "config_changes": [
         <table configuration data>
@@ -62,6 +65,7 @@ r.db('test').tableCreate('authors').run(connection, function(err, result) {
     "tables_created": 1
 }
 ```
+
 config_changes表示创建表的信息, 如果想了解更多 请查阅[tableCreate](#)命令.
 
 关于此查询，您应注意以下几点:
@@ -144,7 +148,7 @@ r.table('authors').run(connection, function(err, cursor) {
 打印的结果就应该是刚刚插入的三条数据，其中还包含了RethinkDB为我们自动生成的主键ID
 
 由于表可能会存放成百万的数据，因此RethinkDB会返回一个游标。当你遍历游标时RethinkDB会一条一条数据发至你的应用程序.
-在我们上面的例子中因为我们清楚表中只存放了3条数据, 所以我们可以使用.toArray来自动遍历游标并放进全部数组.
+在我们上面的例子中因为我们清楚表中只存放了3条数据, 所以我们可以使用.toArray来自动遍历游标并把数据全部放进数组.
 
 ___根据条件查询数据___
 
@@ -192,10 +196,10 @@ r.table('authors').get('7644aaf2-9928-4231-aa68-4e65e31bf219').
 因为主键是唯一的, 所以`get`仅会返回一条记录.这样我们就不需要.toArray转换成数组了.
 
 <div class="infobox ">
-   想了解RethinkDB如何使用索引来查询数据请点击这里.
+   <p>想了解RethinkDB如何使用索引来查询数据请点击<a href="/#/Docs/2-2">这里</a>.</p>
 </div>
 
-## 实时Feeds
+## ChangeFeeds
 
 RethinkDB通过暴露一个令人兴奋的新访问模型来颠覆传统的数据库架构 - 开发人员可以告诉RethinkDB不断向应用程序实时推送更新的查询结果，而不是轮询结果。
 
@@ -286,10 +290,6 @@ r.table('authors').filter(r.row("name").eq("Jean-Luc Picard")).
 ```
 在执行此查询后Jean-Luc Picard的帖子中会额外新增一条
 
-<div class="infobox ">
-   想了解RethinkDB如何操作更多数据请点击这里.
-</div>
-
 ## 删除数据
 
 假设现在我们要减少我们的数据库大小，我们需要删除发帖总数小余3个的作者
@@ -316,12 +316,11 @@ r.table('authors').
 
 ## 了解更多
 
-<div class="infobox "><p><strong>Want to keep learning?</strong> Dive into the documentation:</p>
-
+<div class="infobox">
 <ul>
-  <li>Read the <a href="/docs/introduction-to-reql/">introduction to RQL</a> to learn about the ReQL concepts in more depth.</li>
-  <li>Learn how to use <a href="/docs/map-reduce/">map-reduce</a> in RethinkDB.</li>
-  <li>Learn how to use <a href="/docs/table-joins/">table joins</a> in RethinkDB.</li>
-  <li>Jump into the <a href="/docs/cookbook/javascript/">cookbook</a> and browse through dozens of examples of common RethinkDB queries.</li>
+  <li>阅读<a href="/#/Docs/2-1">了解 ReQL</a>来更深入学习ReQL.</li>
+  <li>了解如何在RethinkDB中使用<a href="/#/Docs/2-5">map-reduce</a>.</li>
+  <li>了解如何在RethinkDB中使用<a href="/#/Docs/2-4">表连接</a>.</li>
+  <li>阅读[ReQL 最佳实践](/#/Docs/4-3)来查看更多示例.</li>
 </ul>
 </div>
