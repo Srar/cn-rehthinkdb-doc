@@ -30,15 +30,12 @@ sudo apt-get install build-essential protobuf-compiler python \
                      libjemalloc-dev wget m4
 ```
 
-## 从Git获取源码编译安装
-
-Git版本包含未发布以及不稳定的修改, 这适用于开发者或项目贡献者使用.
-
 __使用Git clone development分支获取获取源码__
 
 ```
 git clone https://github.com/rethinkdb/rethinkdb.git
 ```
+> Git版本包含未发布以及不稳定的修改, 这适用于开发者或项目贡献者使用.
 
 __从RethinkDB官方获取最新的Release源码__
 ```
