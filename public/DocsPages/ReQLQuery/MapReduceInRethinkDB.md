@@ -12,7 +12,10 @@ RethinkDB中完成Map-reduce操作通常有两或三步:
 * __map__: 在组内再将元素过滤细分并放入新组.
 * __reduce__: 将__map__细分的组内值聚合为单个值.
 
-Some other map-reduce implementations, like Hadoop’s, use the mapping step to perform grouping as well; RethinkDB’s implementation explicitly separates them. This is sometimes referred to as “group-map-reduce,” or GMR. RethinkDB distributes GMR queries over tables and shards efficiently. You write GMR queries with the group, map and reduce commands, although as we’ll see in our examples, many ReQL commands compile to GMR queries behind the scenes—many common map-reduce cases can be accomplished in one or two lines of ReQL.
+一些map-reduce的实现, 例如 Hadoop, 会在mapping阶段分组数据; RethinkDB的实现和这些妖艳贱货们不一样. 
+这些操作被称为"group-map-reduce"或者GMR.
+RethinkDB可以使用GMR来将查询分散在格分片上进行查询处理.
+您可以通过a`group`, `map`与`reduce`命令来完成GMR查询, 也许您在文档内看到了很多又臭又长的ReQL语句, 不过常见的操作一般只要1, 2行ReQL就能完成.
 
 ## 简单示例
 假设您有一个正在运行的博客, 并且您想获取这个博客内全部的文章数量. 那么使用map-reduce来完成查询会有以下步骤:
@@ -24,9 +27,9 @@ Blog数据库包含一个`posts`表其内部包含博客的全部文章. 下面�
 
 ```json
 {
-    "id": "7644aaf2-9928-4231-aa68-4e65e31bf219"
-    "title": "The line must be drawn here"
-    "content": "This far, no further! ..."
+    "id": "7644aaf2-9928-4231-aa68-4e65e31bf219",
+    "title": "The line must be drawn here",
+    "content": "This far, no further! ...",
     "category": "Fiction"
 }
 ```
@@ -95,7 +98,7 @@ r.table("posts").group("category").count().run(conn)
 ```
 
 ## 复杂示例
-这个示例是来自[MongoDB](https://docs.mongodb.com/manual/tutorial/map-reduce-examples/)的示例.
+这个示例是[来自MongoDB的示例](https://docs.mongodb.com/manual/tutorial/map-reduce-examples/).
 想象下有个订单`orders`表, 里面每个记录结构是这样:
 
 ```json
@@ -169,7 +172,8 @@ r.table("orders").concatMap(function(order){
 ```
 
 最后我们使用[ungroup](https://www.rethinkdb.com/api/python/ungroup/)来将已经分组的数据放进对象数组中.
-The `group` field will be the item ID for each group; the `reduction` field will have all the items from the `concat_map` function that belong to each group. Then we’ll use `map` once more to iterate through that array, computing the average on this pass.
+`group`字段将会是每个分组的ID; `reduction`字段内将会有来自`concat_map`处理后的每个组的数据.
+然后我们再次使用`map`遍历数组来计算平均值.
 
 ```javascript
 r.table("orders").concatMap(function(order){
@@ -216,24 +220,37 @@ r.table("orders").concatMap(function(order){
 ## GMR如何执行查询的
 
 RethinkDB的GMR查询会尽可能的使用多个分片与多个CPU核心来达到并行化目的.
-While this allows them to execute efficiently, it’s important to keep in mind that the reduce function is not called on the elements of its input stream from left to right. It’s called on either the elements of the stream in any order or on the output of previous calls to the function.
+这样可以将查询速度大幅度提升, it’s important to keep in mind that the `reduce` function is `not` called on the elements of its input stream from left to right. It’s called on either the elements of the stream ___in any order___ or on the output of previous calls to the function.
 
-Here is an example of an incorrect way to write the previous grouped map-reduce query, simply incrementing the first value passed to the reduction function:
+这里有个使用map-reduce错误方法简单示例:
 
-```python
-# Incorrect!
-r.table('posts').group(lambda post: post['category']).map(
-    lambda post: 1).reduce(lambda a, b: a + 1).run(conn)
+```js
+/* 错误方法! */
+r.table("posts").group(function(post) {
+    return post("category");
+}).map(function(item) {
+  return 1;
+}).reduce(function(left, right) {
+  return left.add(1)
+});
+
+/* 正确方法! */
+r.table("posts").group(function(post) {
+    return post("category");
+}).map(function(item) {
+  return 1;
+}).reduce(function(left, right) {
+  return left.add(right)
+});
 ```
 
-Suppose we have ten documents in a single category in a sharded table. Four of the documents are on shard 1; six are on shard 2. When the incorrect query is executed, this is its path:
+假设我们有个表, 表的分片数为2个. 表中有一个`category`字段. 表中有10个记录的`category`都是一样的. 其中4个记录在表分片1中, 还有6个在表分片2中. 当使用错误的查询姿势时其查询流程是这样的:
 
-The number of documents on shard 1 is computed. The query returns the value `4` for the shard.
-The number of documents on shard 2 is computed. The query returns the value `6` for the shard.
-The final reduction step is executed to combine the values of the two shards. Instead of computing `4 + 6`, the query executes `4 + 1`.
+当在表分片1统计完记录数量时会返回`4`
 
-> Be careful! Make sure your reduction function doesn’t assume the reduction step executes from left to right!
+当在表分片2统计完记录数量时会返回`6`
+
+最后一个步骤还是计算总和的, 不过计算的不是`4 + 6`而是`4 + 1`. 这样就导致了这个查询结果是错误的.
 
 ## 了解更多
 如您想了解更多关于map-reduce, 可以访问[map-reduce维基百科介绍](http://en.wikipedia.org/wiki/MapReduce).
-

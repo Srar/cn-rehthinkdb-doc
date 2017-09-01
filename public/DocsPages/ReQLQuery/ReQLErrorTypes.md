@@ -27,9 +27,9 @@ ___注意___: 有些语言的RethinkDB库会在查询发送给RethinkDB实例前
 
 `ReqlDriverError`: RethinkDB库错误，可能是库有BUG，或者调用了未实现的命令，或者无法序列化查询.
 
-`ReqlPermissionsError`: 用户没有选择执行查询. 了解更多[RethinkDB帐号权限](https://www.rethinkdb.com/docs/permissions-and-accounts/).
+`ReqlPermissionsError`: 用户没有执行查询所需的权限. 了解更多[RethinkDB帐号权限](https://www.rethinkdb.com/docs/permissions-and-accounts/).
 
-`ReqlAuthError`: RethinkDB无法对客户端验证失败，继承自`ReqlDriverError`.
+`ReqlAuthError`: RethinkDB服务器对客户端身份验证失败，继承自`ReqlDriverError`.
 
 ## 继承关系
 

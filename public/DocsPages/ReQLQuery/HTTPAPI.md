@@ -34,7 +34,7 @@ r.http('https://api.github.com/repos/rethinkdb/rethinkdb/stargazers')
  .pluck('login', 'id').orderBy('id')
 ```
 
-## 存储并enriching API数据
+## 存储并处理 API数据
 如果您想对数据进行更多的操作, 那么你最好把数据导入进数据库. 那么我们来创建一个`stargazers`表并将关注的人存储进去. 
 ```
 r.tableCreate('stargazers');

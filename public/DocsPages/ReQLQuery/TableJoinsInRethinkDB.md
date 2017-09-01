@@ -261,7 +261,7 @@ r.table("employees").eq_join("company_id", r.table("companies"))
 ```
 
 ## 手动合并左右表字段
-你可以在没有使用`zip`命令情况下手动合并左右表字段, 举个例子你想保留职员名字和公司名字, 就可以这样肛
+你可以在没有使用`zip`命令情况下手动合并左右表字段, 举个例子你想保留职员名字和公司名字, 可以这样使用:
 ```
 r.table("employees").eq_join("company_id", r.table("companies"))
     .map({
