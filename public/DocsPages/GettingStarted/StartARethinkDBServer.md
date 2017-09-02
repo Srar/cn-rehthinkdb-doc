@@ -1,8 +1,8 @@
 # 开始使用 RethinkDB
 
 <div class="infobox">
-    这篇文档将帮助你了解RethinkDB在命令行中使用多个参数来启动.<br/>
-    设置单个机器上RethinkDB实例至多个RethinkDB实例 或 多个机器多个RethinkDB实例.
+    <p>这篇文档将帮助你了解如何在命令行中使用多个参数来启动RethinkDB.<br/>
+    设置单个机器上单个RethinkDB实例至多个RethinkDB实例 或 多个机器多个RethinkDB实例.</p>
 </div>
 
 ## 启动RethinkDB
@@ -22,7 +22,7 @@ info: Server ready
 * 在本机浏览器中打开administrative port可以访问当前实例的管理界面 (默认端口：8080)
 
 <div class="infobox">
-    如果你想了解全部的启动参数可以输入命令`rethinkdb --help`来查询.
+    <p>如果你想了解全部的启动参数可以输入命令`rethinkdb --help`来查询.</p>
 </div>
 
 ## 单机多RethinkDB实例集群
@@ -55,17 +55,17 @@ ___你现在已经有一个RethinkDB集群了! ___ 你可以通过浏览器访�
 如果你想了解全部的启动参数可以输入命令`rethinkdb --help`来查询.
 
 <div class="infobox">
-    无法访问Web管理界面？
+   <p>无法访问Web管理界面？
     可以尝试在启动参数追加`--bind all`来启动RethinkDB<br />
-    <b style="color: #f35151;">RethinkDB自身Web管理界面没有提供管理员认证！建议使用iptables阻挡非本机IP连接Web管理界面</b>
+    <b style="color: #f35151;">RethinkDB自身Web管理界面没有提供管理员认证！建议使用iptables阻挡非本机IP连接Web管理界面</b></p>
 </div>
 
 在实际操作中你肯定希望通过配置文件来启动RethinkDB而不是命令行操作. 你可以查阅这里来了解配置文件.
 此外你应该也希望RethinkDB在启动时自动启动, 你可以点击这里了解使用init.d或systemd来设置开机自动启动.
 
 <div class="infobox">
-    想增加第三个节点？<br />
-    可以通过以上方法增加第三个节点，只需随便在现有集群中选取一个节点即可.
+    <p>想增加第三个节点？<br />
+    可以通过以上方法增加第三个节点，只需随便在现有集群中选取一个节点即可.</p>
 </div>
 
 ## 多机多RethinkDB实例分布式集群
@@ -83,22 +83,22 @@ $ rethinkdb --join 第一台IP:29015 --bind all
 ___你现在已经有一个RethinkDB分布式集群了! ___
 
 <div class="infobox">
-    <b style="color: #f35151;">RethinkDB自身Web管理界面没有提供管理员认证！<br />
-    建议使用iptables阻挡非本机IP连接Web管理界面 或 建立IP白名单</b>
+    <p><b style="color: #f35151;">RethinkDB自身Web管理界面没有提供管理员认证！<br />
+    建议使用iptables阻挡非本机IP连接Web管理界面 或 建立IP白名单</b></p>
 </div>
 
 如果你的RethinkDB是绑定公网IP，请查阅RethinkDB安全须知.
 
 ## 遇到错误
 <div class="infobox">
-   集群中的节点RethinkDB版本不能相差过大否则会无法加入集群<br/>
-   节点的RethinkDB位数必须要一样列如32位实例无法加入64位实例的节点集群
+   <p>集群中的节点RethinkDB版本不能相差过大否则会无法加入集群<br/>
+   节点的RethinkDB位数必须要一样列如32位实例无法加入64位实例的节点集群</p>
 </div>
 <div class="infobox">
-   RethinkDB实例加入集群时提示 <b>'received invalid clustering header'?</b><br />
+   <p>RethinkDB实例加入集群时提示 <b>'received invalid clustering header'?</b><br />
     RethinkDB会占用机器三个端口分别作用是<b>Web管理界面</b>，<b>应用程序通讯端口</b>，<b>实例集群通讯端口</b> <br />
     你可以在浏览器中打开<b>Web管理界面</b>通过浏览器快速管理RethinkDB<br/>
     应用程序(列如一个nodejs应用)可以通过<b>应用程序通讯端口</b>来执行查询操作<br/>
     当你启用集群模式时各个节点会使用<b>实例集群通讯端口<b/>通讯<br/><br/>
-    如果你启动集群实例时指定错端口则会发生'received invalid clustering header'提示<br/>
+    如果你启动集群实例时指定错端口则会发生'received invalid clustering header'提示</p>
 </div>
