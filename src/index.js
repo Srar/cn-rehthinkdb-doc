@@ -11,7 +11,7 @@ ReactDOM.render(
 		<Route path="/" component={App}>
 			<IndexRedirect to="/Docs" />
 			{ getRouterOfDocsView("Docs", require("./pages/RethinkDBDocs.json")) }
-			<Route path="Api" component={ApiView}/>
+			{/* <Route path="Api" component={ApiView}/> */}
 		</Route>
 	</Router>,
 	document.getElementById('root')

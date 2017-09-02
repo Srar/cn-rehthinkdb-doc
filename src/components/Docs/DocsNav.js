@@ -6,8 +6,11 @@ class DocsNav extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			component: this.props["defaultChild"] || <span></span>
+			component: this.props["defaultChild"] || <span></span>,
+			selectedPage: ""
 		};
+
+
 	}
 
 	isUrl(path) {
@@ -42,14 +45,12 @@ class DocsNav extends Component {
 										return (
 											<li key={`docs-nav-item-${item.title}-${child.title}`} 
 											    style={child.style ? child.style : {}}
-												className={child.className ? child.className : ""}>
-												{/*<Link to={`${this.props.root || ""}${itemIndex}-${childIndex}`}>{child.title}</Link>*/}			
-												{/*<a href={_this.isUrl(child.path) ? child.path : `${this.props.root || ""}${itemIndex}-${childIndex}`}>{child.title}</a>*/ }
-												
+												className={ this.state.selectedPage == child.path ? "active" : "" } >
 												{	
 													_this.isUrl(child.path) ? 
 													<a href={child.path}>{child.title}</a>:
-													<Link to={`${this.props.root || ""}${itemIndex}-${childIndex}`}>{child.title}</Link>
+													<Link to={`${this.props.root || ""}${itemIndex}-${childIndex}`}
+													      onClick={ () => this.setState({ selectedPage: child.path })}>{child.title}</Link>
 												}
 											</li>
 										)
