@@ -8,7 +8,8 @@ RethinkDB中有3个吃内存的地方:
 
 以下会更详细的说明.
 
-# 缓存大小
+## 缓存大小
+
 RethinkDB会将近期使用的数据保存在内存中以减少对硬盘的访问次数.
 默认情况下RethinkDB会自动设置缓存最大容量为`(available_mem - 1024 MB) / 2`.
 `available_mem`是当RethinkDB启动时候, 获取物理内存还有多少可用的变量.
@@ -25,7 +26,8 @@ RethinkDB会将近期使用的数据保存在内存中以减少对硬盘的访�
   `$ rethinkdb --cache-size 2048`
 * 使用配置文件启动: 您可以在配置文件内(`/etc/rethinkdb/instances.d/...`)添加`cache-size=<limit in MB>`来调整缓存限制.
 
-# metadata
+## metadata
+
 RethinkDB可以处理并存储比物理内存大得多的数据库, 但是一些metadata会始终保存在内存中, 以便快速访问.
 每个表会占用每个服务器上的8MB内存.
 
@@ -35,5 +37,6 @@ RethinkDB会将数据合并成块, 然后块会以512字节增长, 块最大为4
 其中不超过250字节的小记录会存储在主索引树内, 这样许多小记录就能共享单个4kb块.
 大于250字节的较大记录会被存储在单个块中, 大于4kb的记录会被分割成多个4kb块分开存储.
 
-Additional blocks are allocated to store index trees for secondary indexes as well as for the primary index of each table. 
-通常每索引每30个记录会用到一个块, 这取决于索引索引键大小.
+每个表的额外块会同时被存储在主索引与二级索引树内.
+
+通常每索引每30个记录会用到一个块, 这取决于索引键大小.

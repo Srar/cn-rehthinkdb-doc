@@ -186,14 +186,18 @@ table.map( r.row("field0").split(".").count() ).sum()
 
 # 结论
 我们希望提供一个覆盖各种不同负载下RethinkDB的全面测试.
-We chose to use the YCSB testing framework as a reliable and community-approved means of conducting rigorous testing on our database. We saw that all of the tests resulted in near-linear scalability as we moved from a single RethinkDB instance to a 16 node cluster. Although most of the tests resulted in performance metrics that suggest horizontal scalability, we know that there are plenty of improvements to make as the database evolves.
+我们选择YCSB性能测试框架是因为这个框架的可靠性和准确性被开源社区所认同.
+所有测试中我们可以看到RethinkDB从单点扩展到集群16个节点时性能表现呈线性增长.
+不过我们也知道随着数据库技术不断发展, RethinkDB会有更多的改进空间.
 
-# Ongoing
-Near to the release of this performance report, we are excited to release RethinkDB 2.3 with plenty of new features. Rigorous performance testing, and properly publishing results is a very time-consuming process, but one we will conduct for future releases on an ongoing basis. We plan to publish our next set of metrics during the lifetime of the RethinkDB 2.3 release. We also would like to test RethinkDB performance when scaled to beyond a 16 node cluster during our next testing cycle. Going forward, we will include a summary of previous reports at the end of each report for comparison.
+# 后续
+发布这篇性能报告前我们很高兴发布了RethinkDB 2.3. RethinkDB 2.3更新了许多新功能.
+由于测试数据库性能是一个非常耗时的工作, 因此我们计划在RethinkDB 2.3的版本生命周期内可以发布RethinkDB 2.3的性能报告,
+同时有机会的话会附上历史版本的性能报告以供对比参考.
 
-## Notes
+## 其他
 
-* We were fortunate enough to receive free credits from Rackspace to perform the majority of these tests and are very grateful for their contributions to open source software. All of [Rackspace’s OnMetal offerings can be found here](https://www.rackspace.com/cloud/servers/onmetal).
-* We’d love to answer any questions you have about these tests. Come join us at [http://slack.rethinkdb.com](http://slack.rethinkdb.com) and feel free to ask more specific questions we don’t answer here by pinging @danielmewes or @dalanmiller.
-* Recently, the team behind BigchainDB – a scalable blockchain database built on top of RethinkDB – has benchmarked RethinkDB on a 32-server cluster running on Amazon's EC2. They measured throughput of more than a million writes per second. Their conclusion: "There is linear scaling in write performance with the number of nodes." The full report is available at [https://www.bigchaindb.com/whitepaper/](https://www.bigchaindb.com/whitepaper/)
-* We also recently contracted Kyle Kingsbury, known to the Internet as [@aphyr](https://twitter.com/aphyr), as an independent researcher to evaluate RethinkDB. He wrote [a pair of blog posts](https://aphyr.com/tags/RethinkDB) on how he tested and confirmed RethinkDB clustering and consistency guarantees.
+* 我们很感谢Rackspace对我们与开源社区的信任. 其提供了设备以供我们完成大部分测试. 如果您有需要可以在这[查看Rackspace的全部产品](https://www.rackspace.com/cloud/servers/onmetal).
+* 同时如果您有关于性能报告的疑问欢迎[加入我们](http://slack.rethinkdb.com)然后向@danielmewes或@dalanmiller提问.
+* 最近一个数据库开发团队基于RethinkDB开发了一款区块链数据库. 这个团队在AWS EC2上运行了32个服务器上运行了RethinkDB集群, 
+并对集群做了性能基准测试. 他们表示集群每秒可以处理高达100万次的写入请求同时写性能与节点数成线性比例关系. 有关于这个基准报告的详细内容请访问:[https://www.bigchaindb.com/whitepaper/](https://www.bigchaindb.com/whitepaper/).

@@ -1,9 +1,10 @@
 # 异常恢复
 虽然我们尽可能保证RethinkDB实例自身可用性, 但是如同其他复杂应用程序一样崩溃是不可避免的.
 
-# 崩溃前干了啥
+## 崩溃前的操作
 
-## 检查您是不是用完了内存
+__检查您是不是用完了内存__
+
 您可以检查是不是因为内存不足导致内核干掉了RethinkDB实例进程:
 ```
 sudo dmesg | grep oom
@@ -16,7 +17,8 @@ rethinkdb invoked oom-killer: gfp_mask=0x201da, order=0, oom_adj=0, oom_score_ad
 如果您看到了类似上面的输出, 您可以尝试调小RethinkDB缓存大小.
 有关内存缓存的信息, 以及如何调整缓存请阅读[Understanding RethinkDB memory requirements](#).
 
-## 检查日志
+__检查日志__
+
 日志文件的路径取决于RethinkDB配置文件内所设置的路径以及如何启动RethinkDB实例的.
 
 * 如您直接在bash中执行`rethinkdb`命令来启动实例的话那么日志会在数据目录`rethinkdb_data`下的`log_file`内.
@@ -30,12 +32,14 @@ rethinkdb invoked oom-killer: gfp_mask=0x201da, order=0, oom_adj=0, oom_score_ad
 
 日志可能会提供有关崩溃的关键信息.
 
-## 社区支持
+__社区支持__
+
 如果您遇到的问题不是由于内存满了, 并且日志内也无异常, 
 那么您可以试试去IRC[#rethinkdb on freenode](http://webchat.freenode.net/?channels=#rethinkdb)或者
 [Google Group](http://groups.google.com/group/rethinkdb)碰碰运气. 看看有没有大触能为您解答问题.
 
-# 如何提交RethinkDB Bug
+## 如何提交RethinkDB Bug
+
 您可以在我们的Github issue上开启问题[https://github.com/rethinkdb/rethinkdb/issues](https://github.com/rethinkdb/rethinkdb/issues)
 
 提出issue时我们需要您提供以下信息:
@@ -46,7 +50,7 @@ rethinkdb invoked oom-killer: gfp_mask=0x201da, order=0, oom_adj=0, oom_score_ad
 * 如果在日志中有异常堆栈, 请提供日志.
 
 还有一些其他信息可以帮助我们定位错误, 如果您有以下信息的话.
-* [系统表](/docs/5-5)内信息
+* [系统表](/#/docs/5-5)内信息
 * `rethinkdb._debug_table_status`内记录
 * The core file, if it was  on crash
 * 如果RethinkDB由于数据文件无法启动的数据文件.
@@ -58,7 +62,7 @@ rethinkdb invoked oom-killer: gfp_mask=0x201da, order=0, oom_adj=0, oom_score_ad
   * 是否跑在虚拟机中?
 * 异常是否可以重现, 如何触发异常的.
 
-# 导出系统表
+## 导出系统表
 在Web管理界面的Data Explorer中执行以下命令. 其会输出最多50行内容. 其中包括各类配置, 状态, 以及日志表.
 
 ```javascript
@@ -70,11 +74,11 @@ r.expr(["current_issues", "jobs", "stats", "server_config", "server_status",
 )
 ```
 
-# 设置高可用
+## 设置高可用
+
 RethinkDB支持您对表创建副本, 最大创建副本的数量取决您集群内的节点数量.
 您可以通过Web管理界面很方便的设置副本, 或者通过不是很方便的ReQL来设置.
-更多信息请阅读[标记, 分片, 副本](/docs/5-1).
+更多信息请阅读[标记, 分片, 副本](/#/docs/5-1).
 
 RethinkDB目前还不能支持全自动故障转移, 当集群内节点发生故障时, 您可以手动剔除节点.
-在大多数情况下RethinkDB会自动保证表可用. 了解更多信息请阅读[故障转移](/docs/5-3).
-
+在大多数情况下RethinkDB会自动保证表可用. 了解更多信息请阅读[故障转移](/#/docs/5-3).

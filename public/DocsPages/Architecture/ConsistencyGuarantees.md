@@ -103,7 +103,7 @@ RethinkDB中的大多数设置是倾向于数据一致性高于性能的, 不过
 
 ## 其他
 
-Using the `emergency_repair` option on a table will invalidate all the guarantees.
+当您对表开启`emergency_repair`(紧急维修模式)选项后会关闭RethinkDB针对表正常保护机制, 如果操作不当可能会导致数据丢失.
 
 当写入操作确定写入失败时, 任何读取设置都不会读取到写入失败的数据.
 当写入操作还正在确认是否失败时, 使用`single`或`outdated`可能会读取到正在确认的数据.

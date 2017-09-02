@@ -44,7 +44,7 @@ promise = promise.then(function(){
 })
 ```
 RabbitMQ使用使用多路复用, 所以只需要单个TCP连接即可.
-Next, we’ll declare the topic exchange so we have somewhere to send our change notifications:
+接下来我们将声明一个topic exchange, 来允许让我们可以把更变消息发送至它:
 ```javascript
 promise = promise.then(function(){
     return channel.assertExchange('rethinkdb', 'topic', {durable: false});

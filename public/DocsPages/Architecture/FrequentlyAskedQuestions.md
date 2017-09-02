@@ -10,7 +10,7 @@ RethinkDB是一款开源, 可扩展, 并具有实时性的JSON数据库.
 有关RethinkDB更多技术细节请查看我们的博文[Advancing the realtime web](https://www.rethinkdb.com/blog/realtime-web/).
 
 ## 什么情景下使用RethinkDB是一个好选择?
-当您的应用程序需要使用实时性数据并收益时(原文: RethinkDB is a great choice when your applications could benefit from realtime feeds to your data.), 那么RethinkDB就是一个好选择.
+当您的应用程序在changefeeds中收益很大时, 那么RethinkDB就是一个好选择.
 
 传统的数据库模型: 查询 -> 响应, 这在web应用上没问题, 因为http请求也是类似. 
 然而现代应用需要将数据实时发送至客户端. 以下有一些使用场景受益于RethinkDB实时推送构架:
@@ -118,7 +118,7 @@ RethinkDB中有个可以自定义的缓存引擎, 这样就可以运行在小内
 ReQL还能够完成SQL完成不了的任务列如: 与Javascript混合查询, map-reduce等.
 
 ## RethinkDB是原子操作吗?
-大多数涉及单个记录的写操作都是原子性的. 
+大多数涉及单个记录的写操作都是原子性原子操作. 
 具有不确定性的更新是无法以原子性进行操作的(列如子查询).
 同时更新多条记录也不是原子性操作.
 
@@ -139,7 +139,7 @@ RethinkDB集群内部会将查询自动发送至对应的节点, 其中高级查
 ## RethinkDB写持久化模式是如何的?
 默认情况下RethinkDB与传统数据库处理的方式相同, 只会在数据写入硬盘后才会报告插入成功.
 
-> 想提高查询性能? 请阅读[异常恢复](/docs/7-1)中的 "插入速度很慢, 如何提高插入记录速度?"
+> 想提高查询性能? 请阅读[异常恢复](/#/Docs/7-0)中的 "插入速度很慢, 如何提高插入记录速度?"
 
 ## RethinkDB会自动提交那些统计数据?
 默认情况下RethinkDB会在检测版本的时候将匿名统计信息发送给RethinkDB HQ, 其报告的信息包括:

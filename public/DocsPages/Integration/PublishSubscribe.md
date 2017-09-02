@@ -103,7 +103,7 @@ exchange.queue(filterFunc).subscribe(function(topic, payload){
 
 ## Subscribing to hierarchical topics
 最后一个示例我们将使用一个object作为topics. 
-使用object作为topics允许我们对发布的信息带有分级结构, rather than keeping them in a flat structure like an array. This provides us with maximum flexibility in message routing.
+使用object作为topics允许我们对发布的信息带有分级结构, 而不是局限于类似array的平面结构中. 这样就为我们提供了更大的灵活性.
 
 假如我们想发布Batman,Superman与Joker的合作:
 
@@ -120,16 +120,16 @@ topic.publish('Today Batman, Superman and the Joker teamed up ' +
               'in a surprising turn of events...');
 ```
 
-There are multiple subscriptions we could have set up that would receive this news:
+当收到消息的时候我们可以设定接受
 
 ```javascript
 // 获取有关于surprising的消息
 var isSurprising = function(topic){return topic('surprising')};
 
-// Get all messages involving a teamup or a fight
+// 获取有关于 teamup 或 fight 消息
 var isTeamOrFight = function(topic){return topic('teamup').or(topic('fight'))};
 
-// Get all messages talking about a teamup with Batman
+// 获取有关于teamup中带有Batman的消息 
 var aboutBatman = function(topic){
     return topic('teamup')('superheroes').contains('Batman');
 }

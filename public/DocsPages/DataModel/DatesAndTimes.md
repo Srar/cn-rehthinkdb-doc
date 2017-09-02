@@ -212,18 +212,21 @@ true
 > r.expr(new Date()).dayOfWeek().eq(r.friday).run(conn, callback);
 true
 ```
+
 We also let you slice the time into the date and the current time of day (a time and a duration, respectively):
+
 ```js
-// 时间戳
+// 返回现在的UTC时间距离1970年1月1日0点所经过的秒数
 > r.now().toEpochTime().run(conn, callback);
 /* 结果 */
 1376351312.744
 
+// 返回今天UTC 0点距离1970年1月1日0点所经过的秒数
 > r.now().date().toEpochTime().run(conn, callback);
 /* 结果 */
 1376265600
 
-// 自UTC 0点开始已经过去了几秒
+// 返回UTC 0点开始已经过去了几秒
 > r.now().timeOfDay().run(conn, callback);
 /* 结果 */
 85712.744
