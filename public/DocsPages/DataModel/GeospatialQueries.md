@@ -94,7 +94,7 @@ RethinkDB只允许使用等价的GeoJSON对象来转换, 目前已经支持GeoJS
 ## FAQ
 * ___目前支持多少个纬度?___<br/>
 两个纬度：经度与纬度.
-* ___目前支持了那些投影坐标?(What projections are supported?)___<br/>
+* ___What projections are supported?___<br/>
 RethinkDB supports the WGS84 World Geodetic System’s reference ellipsoid and geographic coordinate system (GCS). It does not directly support any projected coordinate system (PCS), but there are many tools available for performing such projections.
 * ___Does RethinkDB do a correct interpolation of degrees to meters along a path?___<br/>
 Yes. Distance calculations are done on a geodesic (either WGS84’s reference ellipsoid or a unit sphere).

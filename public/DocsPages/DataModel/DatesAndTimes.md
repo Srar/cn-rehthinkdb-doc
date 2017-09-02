@@ -12,7 +12,8 @@ RethinkDB原生支持精确至毫秒的带时区时间. 以下有一些说明:
 
 ## 简单例子
 首先创建一个表然后插入一些事件. 我们插入第一个事件会使用原生的日期对象，第二个事件会用`epochTime`构造函数:
-```
+
+```js
 r.tableCreate('events').run(conn, callback);
 
 r.table('events').insert([
@@ -21,9 +22,9 @@ r.table('events').insert([
 ]).run(conn, callback);
 ```
 现在我们来看看插入的事件实际时间:
-```
+```js
 > r.table('events');
-// 结果
+/* 结果 */
 [
     { "id": 0, "timestamp": Date("2013-08-13T23:32:49.923Z") },
     { "id": 1, "timestamp": Date("2013-08-13T23:32:49.923Z") }
@@ -32,19 +33,19 @@ r.table('events').insert([
 您会注意到上述插入的两个事件时间都是Javascript的原生`Date`对象(Javascript中的`Date`对象不会存储时区信息，所以两个事件时间都是UTC时间，而不是服务器本地时间)
 
 现在我们来试试基于时间来筛选数据:
-```
+```js
 > r.table('events').filter(r.row('timestamp').hours().gt(20)).run(conn, callback);
-// 结果
+/* 结果 */
 [ { "id": 1, "timestamp": Date("2013-08-13T23:32:49.923Z") } ]
 ```
-或者为`timestamp`来创建索引:
-```
+或者为`timestamp`字段创建索引:
+```js
 > r.table('events').indexCreate('timestamp').run(conn, callback);
 
 > r.table('events').between(r.epochTime(1376436769.913),
       r.epochTime(1376436769.933), {index: 'timestamp'}
   ).run(conn, callback);
-// 结果
+/* 结果 */
 [ { "id": 1, "timestamp": Date("2013-08-13T23:32:49.923Z") } ]
 ```
 
@@ -53,7 +54,7 @@ r.table('events').insert([
 目前存储时间字符串使用的编码为ISO 8601.当你使用Javascript操作时间的时候要注意，由于Javascript的`Date`对象限制
 所以Javascript的RethinkDB库会删除时区信息。所以如果有需要可以使用ReQL原生时间对象来查询带时区的记录。
 
-当查询时间时查询的时间UTC值和记录UTC值为相同时说明两个时间相等，不会受到时区的影响. This is true for both comparisons and indexed operations. Times are compared in floating point with millisecond precision.
+当查询时间时查询的时间UTC值和记录UTC值为相同时说明两个时间相等，不会受到时区的影响. 对于比较与索引操作也是如此.
 
 目前可以操作的日期范围为:1400~10000年之间.
 
@@ -61,70 +62,71 @@ r.table('events').insert([
 
 ## 插入时间记录
 你插入时间记录可以使用原生的`Date`对象:
-```
+```js
 > r.table('events').insert({id: 2, timestamp: new Date()}).run(conn, callback);
-// 结果
+/* 结果 */
 {"unchanged"=>0, "skipped"=>0, "replaced"=>0, "inserted"=>1, "errors"=>0, "deleted"=>0}
 ```
-你也可以使用`r.now`(`r.now`会返回RethinkDB实例服务器的UTC时间)或使用时间构造方法: `r.time`, `r.epochTime`, `r.ISO8601`:
-```
+你也可以使用`r.now`(`r.now`会返回RethinkDB实例所在的服务器上的UTC时间)或使用时间构造方法: `r.time`, `r.epochTime`, `r.ISO8601`:
+```js
 > r.now().toISO8601().run(conn, callback);
-// 结果
+/* 结果 */
 "2013-08-09T18:53:15.012+00:00"
 
 > r.time(2013, r.august, 9, 18, 53, 15.012, '-07:00').toISO8601().run(conn, callback);
-// 结果
+/* 结果 */
 "2013-08-09T18:53:15.012-07:00"
 
 > r.epochTime(1376074395.012).toISO8601().run(conn, callback);
-// 结果
+/* 结果 */
 "2013-08-09T18:53:15.012+00:00"
 
 > r.ISO8601("2013-08-09T18:53:15.012-07:00").toISO8601().run(conn, callback);
-// 结果
+/* 结果 */
 "2013-08-09T18:53:15.012-07:00"
 ```
-时间可以被当做一个表的主键，如果两个记录的UTC时间一样不管时区如何则判断为相等.
-```
+时间可以被当做一个表的主键，插入一个UTC时间已经存在的主键时会插入失败.
+```js
 > r.table('t').insert(
       {id: r.ISO8601("2013-08-09T11:58:00.1111-07:00")}
   ).run(conn, callback);
-// 结果
+/* 结果 */
 {"unchanged"=>0, "skipped"=>0, "replaced"=>0, "inserted"=>1, "errors"=>0, "deleted"=>0}
 
 > r.table('t').insert(
       {id: r.ISO8601("2013-08-09T10:58:00.1111-08:00")}
   ).run(conn, callback);
-// 结果
+/* 结果 */
 {"unchanged"=>0, "skipped"=>0, "replaced"=>0, "inserted"=>0,
  "first_error"=>"Duplicate primary key `id`: ...", "errors"=>1, "deleted"=>0}
 ```
-您可以使用字符串来表达伪时间类型，This is useful if, for instance, you exported a row using {timeFormat: 'raw'} (see Retrieving Times below).
+
+您也可以使用伪类型来表示时间类型来插入时间记录. 这种伪类型情况也会在您使用`{timeFormat: 'raw'}`来导出时间类型时见到.
 
 > 注意请不要使用`^\$reql_.+\$$`正则的键，因为这会被RethinkDB认为是关键词.
 
-```
+```js
 r.expr(
       {'$reql_type$': 'TIME', epoch_time: 1376075362.662, timezone: '+00:00'}
   ).run(conn, callback);
-// 结果
+/* 结果 */
 Date("2013-08-09T19:09:22.662Z")
 ```
 
 ## 查询时间
 默认情况下，查询数据会把时间转换成原生的时间对象.这可以通过`timeFormat`传递给`run`来控制.
 目前只有两个选项默认的一个`native`, 和`raw`. 如果您不确定如何在Javascript中传递可选参数，可以查询[API文档](https://www.rethinkdb.com/api/javascript/)
-```
+```js
 > r.now().run(conn, callback);
-// 结果
+/* 结果 */
 Date("2013-08-13T23:32:49.923Z")
 
 > r.now().inTimezone('-07:00').run(conn, callback);
-// 结果: same as above, no TZ info retrieved
+/* 结果 */: same as above, no TZ info retrieved
 Date("2013-08-13T23:32:49.923Z")
 
 > r.now().run(conn, {timeFormat: 'raw'}, callback);
-// 结果
+/* 结果 */
 {
   "$reql_type$": "TIME",
   "epoch_time": 1423077622.659,
@@ -132,7 +134,7 @@ Date("2013-08-13T23:32:49.923Z")
 }
 
 > r.now().inTimezone('-07:00').run(conn, {timeFormat: 'raw'}, callback);
-// 结果
+/* 结果 */
 {
   "$reql_type$": "TIME",
   "epoch_time": 1423077646.772,
@@ -140,38 +142,38 @@ Date("2013-08-13T23:32:49.923Z")
 }
 ```
 您也可以通过`toEpochTime`或`toISO8601`来转换时间对象:
-```
+```js
 > r.now().toEpochTime().run(conn, callback);
-// 结果
+/* 结果 */
 1376075986.574
 
 > r.now().toISO8601().run(conn, callback);
-// 结果
+/* 结果 */
 "2013-08-09T19:19:46.574+00:00"
 ```
 
 ## 修改时间
 您可以按秒为单位添加时间或者减少时间:
-```
+```js
 > r.time(2015, 1, 1, 'Z').add(86400).run(conn, callback);
-// 结果
+/* 结果 */
 Fri Jan 02 2015 00:00:00 GMT+00:00
 ```
 您也可以使用两个时间相减，得到的结果也是以秒为单位的:
-```
+```js
 > r.time(2015, 1, 2, 'Z').sub(r.time(2015, 1, 1, 'Z')).run(conn, callback);
-// 结果
+/* 结果 */
 86400
 ```
 
 ## 时间比较
 与正常的比较操作一样来比较时间:
-```
+```js
 > r.epochTime(1376081287.982).lt(new Date()).run(conn, callback);
 true
 ```
 以毫秒为单位来比较时间:
-```
+```js
 > r.epochTime(1376081287.9821).eq(r.epochTime(1376081287.9822)).run(conn, callback);
 true
 ```
@@ -179,57 +181,57 @@ true
 
 ## 查询时间部分
 你可以查询时区时间一部分(比如查询时间的小时部分，或者月部分). 完整说明请查阅[API文档](https://www.rethinkdb.com/api/javascript/)
-```
+```js
 > r.expr(new Date()).run(conn, callback);
-// 结果
+/* 结果 */
 "2013-08-13T23:32:49.923Z"
 
 // 查询月部分
 > r.expr(new Date()).month().run(conn, callback);
-// 结果
+/* 结果 */
 8
 
 // 查询小时部分
 > r.expr(new Date()).hours().run(conn, callback);
-// 结果
+/* 结果 */
 23
 
 // 查询时区偏移后的时间小时部分
 > r.expr(new Date()).inTimezone('-06:00').hours().run(conn, callback);
-// 结果
+/* 结果 */
 17
 ```
 当使用ISO 8601来存储时间时，星期一会从1开始:
-```
+```js
 > r.expr(new Date()).dayOfWeek().run(conn, callback);
 5 # 星期五
 ```
 为了方便起见我们已经帮你定义了星期枚举`r.monday...r.sunday`和`r.january...r.december`:
-```
+```js
 // 查询今天是不是星期五
 > r.expr(new Date()).dayOfWeek().eq(r.friday).run(conn, callback);
 true
 ```
 We also let you slice the time into the date and the current time of day (a time and a duration, respectively):
-```
+```js
 // 时间戳
 > r.now().toEpochTime().run(conn, callback);
-// Result passed to callback
+/* 结果 */
 1376351312.744
 
 > r.now().date().toEpochTime().run(conn, callback);
-// Result passed to callback
+/* 结果 */
 1376265600
 
 // 自UTC 0点开始已经过去了几秒
 > r.now().timeOfDay().run(conn, callback);
-// Result passed to callback
+/* 结果 */
 85712.744
 ```
 
 ## 结合全部操作
 您可以通过上述讲的操作来写出牛逼的ReQL查询.假设您有个公司销售表，您想知道营业额中有多少是来自加班员工所赚取的并假设您的公司销售处分布在全球各地并且员工工作时间是根据时区时间戳存放的:
-```
+```js
 r.table('sales').filter(function (sale) {
     // 周末加班
     return sale('time').dayOfWeek().eq(r.saturday).or(
@@ -239,10 +241,10 @@ r.table('sales').filter(function (sale) {
         sale('time').hours().ge(17));
 }).sum('dollars').run(conn, callback);
 ```
-如果您有一个RethinkDB集群，上述查询会也会自动分发在集群内各节点无需客户端介入.
+如果您有一个RethinkDB集群，上述查询会也会自动分发在集群内各节点无需人肉介入.
 
 现在~~产品~~经理又有新需要了，需要导出每个月的员工加班赚取情况。不过有ReQL不需要担心，因为可以查询各部分很容易拼装:
-```
+```js
 r.table('sales').filter(function (sale) {
     // 周末加班
     return sale('time').dayOfWeek().eq(r.saturday).or(
@@ -255,6 +257,3 @@ r.table('sales').filter(function (sale) {
     return sale('time').month();
 }).sum('dollars').run(conn, callback);
 ```
-
-
-
