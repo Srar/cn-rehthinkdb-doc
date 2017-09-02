@@ -14,7 +14,7 @@ RethinkDB和SQL中有着绝大多数相似的术语. 下面的表将会把术语
 | row              | document(为了方便起见我把`文档`汉化成了`记录`)   | 
 | column           | field                                      | 
 | table joins      | table joins                                | 
-| primary key      | primary key (默认为`id`字段)                 | 
+| primary key      | primary key (默认会将`id`字段自动作为主键)                 | 
 | index            | index                                      | 
 
 ## 插入
@@ -641,6 +641,6 @@ SELECT *
 ## 了解更多
 点击以下链接了解ReQL更多信息
 * [Lambda functions in RethinkDB](https://www.rethinkdb.com/blog/lambda-functions/)
-* [Introduction to map-reduce](/docs/2-5)
-* [Introduction to Joins](/docs/2-4)
+* [了解RethinkDB中的map-reduce](/#/Docs/2-5)
+* [了解RethinkDB中的表连接](/#/Docs/1-3)
 * [API Reference](https://www.rethinkdb.com/api/javascript/)

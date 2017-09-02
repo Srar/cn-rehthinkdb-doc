@@ -9,9 +9,11 @@ ___仅在某个特定操作需要的时候才会联合多个特定分片查询__
 通俗的来说就是查询记录时候可能会在多个分片上进行查询
 
 现在我们写个简单的查询，来了解下整个查询的大概过程:
-```
+
+```js
 r.table('users').filter({role: 'admin'}).run(conn, callback);
 ```
+
 RethinkDB处理这个查询会有以下步骤:
 * 将查询发送到查询服务端执行
 * 在`users`表的每个分片中并行执行`filter`命令
@@ -38,11 +40,13 @@ r.table('users').orderBy('username').run(conn, callback);
 
 ReQL中的链式查询命令的顺序也会导致性能影响. 先想想上面两个例子的一个是查询`admin`用户的，另一个是根据
 `username`排序的。`filter`操作可以并行操作，然而`orderBy`并不可以。所以查询应该这样写
-```
+
+```js
 r.table('users').filter({role: 'admin'}).orderBy('name').run(conn, callback);
 ```
 而不是这样:
-```
+
+```js
 r.table('users').orderBy('name').filter({role: 'admin'}).run(conn, callback);
 ```
 
@@ -57,9 +61,9 @@ r.table('users').orderBy('name').filter({role: 'admin'}).run(conn, callback);
 任何需要在查询服务端上处理的命令都只会在查询服务端上处理不会并行查询。所以尽量把可以并行查询的命令放在前面以减少后续需要集中处理的数据.
 
 ## 复制
-RethinkDB默认情况下是数据安全性大于性能，. One of those defaults is that queries will be sent to the primary replicas for shards, which will always have current data (although that data may be returned to a query before it’s been committed to disk).
+RethinkDB默认情况下是数据一致性大于性能, 当您进行查询时查询会被发送至分片的主副本上来确保数据已在主副本上.
 
-您可以通过`outdated`模式来提高性能，这将允许从集群内任何节点上获取记录.
+您可以通过使用`outdated`模式来提高性能，这将允许从集群内任何节点上获取记录.
 ```
 r.table('users', {readMode: 'outdated'}).
   filter({role: 'admin'}).run(conn, callback);

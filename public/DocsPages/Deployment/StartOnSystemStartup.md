@@ -5,11 +5,12 @@
 * 安装RethinkDB为系统服务器(在linux中基于`init.d`或者`systemd`. macOS中基于`launchd`)
 * 为RethinkDB实例创建配置文件
 
-# 基于init.d开机启动
+## 基于init.d开机启动
 RethinkDB packages会自动将服务脚本安装在`/etc/init.d/rethinkdb`并添加默认运行级别.
 为了让RethinkDB开机自动启动, 您还需在`/etc/rethinkdb/instances.d/`中创建配置文件.
 
-## 基本设置
+__基本设置__
+
 复制默认配置文件至配置文件目录, 并参考[configuration file](#)对所需要的参数进行设置.
 (如果您手滑把默认配置文件删了, 您可以从[这里](https://github.com/rethinkdb/rethinkdb/blob/next/packaging/assets/config/default.conf.sample)下载)
 
@@ -26,7 +27,8 @@ sudo /etc/init.d/rethinkdb restart
 
 目前已经完成基本设置了, 可以开始正常使用了.
 
-## 多个实例
+__多个实例__
+
 由于init.d在同一服务器上支持多个实例, 因此您只需在`/etc/rethinkdb/instances.d`中创建多个`.conf`文件即可. 
 这可能需要隔离用于在同一服务器上运行单独应用的数据库, 或者用于测试目的.
 
@@ -43,11 +45,13 @@ sudo /etc/init.d/rethinkdb restart
 如果您是通过源码安装的, 你可以点击右边这来获取`init.d`脚本与配置文件. [init.d 脚本](https://github.com/rethinkdb/rethinkdb/blob/next/packaging/assets/init/rethinkdb) 
 & [配置文件](https://github.com/rethinkdb/rethinkdb/blob/next/packaging/assets/config/default.conf.sample)
 
-# 基于systemd开机启动
+__基于systemd开机启动__
+
 完全支持systemd还没完成, 您可以查看[issue 2014](https://github.com/rethinkdb/rethinkdb/issues/2014)来了解进度.
 目前您需要为服务手动创建几个配置文件.
 
-## 基本设置
+__基本设置__
+
 创建配置文件, 配置文件路径为: `/usr/lib/tmpfiles.d/rethinkdb.conf`. 其内容:
 ```
 d /run/rethinkdb 0755 rethinkdb rethinkdb -
@@ -71,7 +75,8 @@ WantedBy=multi-user.target
 ```
 并将刚刚创建的两个配置文件赋予644权限(`chmod 644 <file>`).
 
-## 启动RethinkDB实例
+__启动RethinkDB实例__
+
 首先为RethinkDB创建数据目录, 并为数据目录设置所有权为`rethinkDB`用户:
 ```
 rethinkdb create -d /path/to/your/rethinkdb/directory
@@ -94,7 +99,8 @@ sudo systemctl start rethinkdb@<name_instance>
 ```
 目前已经完成基本设置了, 可以开始正常使用了.
 
-## 多实例
+__多实例__
+
 由于systemd在同一服务器上支持多个实例, 因此您只需在`/etc/rethinkdb/instances.d`中创建多个`.conf`文件即可. 
 这可能需要隔离用于在同一服务器上运行单独应用的数据库, 或者用于测试目的.
 
@@ -105,12 +111,13 @@ sudo systemctl start rethinkdb@<name_instance>
 
 如您是将多个实例运行在多个服务器上请在配置文件中指定`bind=all`.
  
-> 如果您在公网服务器使用`bind=all`那么这个操作具有风险, 你应该采取措施, 以防止未经授权的访问. 请阅读[security page](https://www.rethinkdb.com/docs/security/)来了解详细.
+> 如果您在公网服务器使用`bind=all`那么这个操作具有风险, 你应该采取措施, 以防止未经授权的访问. 请阅读[security page](/#/Docs/6-1)来了解详细.
 
-# 基于launchd开机启动(macOS)
+## 基于launchd开机启动(macOS)
 如您使用[Homebrew](http://brew.sh/)来安装RethinkDB, 那么`launchd`配置文件会自动帮您安装在`~/Library/LaunchAgents/`, 不过自动安装的配置文件可能需要手动修改下.
 
-## 基本设置
+__基本设置__
+
 如果您没有使用Homebrew来自动安装RethinkDB, 那么您需要手动创建`launchd`配置文件并决定RethinkDB数据目录放在那.
 本文档会使用以下路径进行设置:
 * RethinkDB可执行文件: `/usr/local/bin/rethinkdb`
@@ -158,13 +165,14 @@ sudo mkdir -p /Library/RethinkDB
 sudo rethinkdb create -d /Library/RethinkDB/data
 ```
 
-## 使用RethinkDB配置文件
+__使用RethinkDB配置文件__
+
 默认情况下使用Homebrew或者其他安装方式, RethinkDB都不会读取上述的`.plist`配置文件. 如果您想让RethinkDB使用配置文件您可以按照已下步骤执行:
 * 下载[默认配置文件](https://github.com/rethinkdb/rethinkdb/blob/next/packaging/assets/config/default.conf.sample)并复制到特定路径
 ```
 sudo cp default.conf.sample /etc/rethinkdb.conf
 ```
-* 根据您的需要编辑配置文件内的配置项. 当然您也可以不做编辑, 但是配置文件中有一项您必须修改, 那就是`directory=`. 其指向了数据目录在那个路径.
+* 根据您的需要编辑配置文件内的配置项. 当然您也可以不做编辑, 但是配置文件中有一项您必须修改, 那就是`directory=`. 其指向了数据目录在哪个地方.
 ```
 sudo vi /etc/rethinkdb.conf
 ```
@@ -176,9 +184,10 @@ sudo vi /etc/rethinkdb.conf
     <string>--config-file</string>
     <string>/etc/rethinkdb.conf</string>
 </array>
-
-## 启动RethinkDB实例
 ```
+
+__启动RethinkDB实例__
+
 启动RethinkDB, 您需要使用`launchctl`:
 ```
 sudo launchctl load /Library/LaunchDaemons/com.rethinkdb.server.plist
@@ -186,7 +195,8 @@ sudo launchctl load /Library/LaunchDaemons/com.rethinkdb.server.plist
 
 同时RethinkDB也会在开机的时候自动启动, 如果您不想RethinkDB自动启动, 您可以将`com.rethinkdb.server.plist`内的`RunAtLoad`下面一行改为`<false/>`.
 
-## 多实例
+__多实例__
+
 在同一macOS上运行多个RethinkDB实例可能需要隔离用于在同一macOS上运行的单独应用程序的数据库，或者用于测试目的.
 
 > 如果您将同一台物理服务器上开启多个实例并加入集群，这样并不会提升性能.
@@ -201,23 +211,32 @@ sudo launchctl load /Library/LaunchDaemons/com.rethinkdb.server.plist
 在每个配置文件中, 可以来设置不同的数据目录, 并为每个节点添加`join`配置选项, 来加入不同的集群.
 但是您需要确保每个实例的`driver-port`, `cluster-port`, `http-port`不会有冲突.
 
-> 如果您在公网服务器使用`bind=all`那么这个操作具有风险, 你应该采取措施, 以防止未经授权的访问. 请阅读[security page](https://www.rethinkdb.com/docs/security/)来了解详细.
->
-> 当在macOS下Python与Ruby会自动使用系统内自带的OpenSSL, 但是系统自带的OpenSSL是祖传版本并不支持RethinkDB TLS连接.
-> 如您想使用TLS连接, 请确保OpenSSL支持以下特性:
-> * `tls-min-protocol TLSv1`
-> * `tls-ciphers EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:AES256-SHA`
+<div class="infobox infobox-alert">
 
-# 遇到错误
+<p>如果您在公网服务器使用`bind=all`那么这个操作具有风险, 你应该采取措施, 以防止未经授权的访问. 请阅读[集群安全](https://www.rethinkdb.com/docs/security/)来了解详细.</p>
+
+<p>
+当在macOS下Python与Ruby会自动使用系统内自带的OpenSSL, 但是系统自带的OpenSSL是祖传版本并不支持RethinkDB TLS连接.
+如您想使用TLS连接, 请确保您的OpenSSL版本已支持以下特性:
+</p>
+
+<ul>
+  <li><code class="highlighter-rouge">tls-min-protocol TLSv1</code></li>
+  <li><code class="highlighter-rouge">tls-ciphers EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:AES256-SHA</code></li>
+</ul>
+
+</div>
+
+## 遇到错误
 <div class="infobox">
-   集群中的节点RethinkDB版本不能相差过大否则会无法加入集群<br/>
-   节点的RethinkDB位数必须要一样列如32位实例无法加入64位实例的节点集群
+   <p>集群中的节点RethinkDB版本不能相差过大否则会无法加入集群<br/>
+   节点的RethinkDB位数必须要一样列如32位实例无法加入64位实例的节点集群</p>
 </div>
 <div class="infobox">
-   RethinkDB实例加入集群时提示 <b>'received invalid clustering header'?</b><br />
+   <p>RethinkDB实例加入集群时提示 <b>'received invalid clustering header'?</b><br />
     RethinkDB会占用机器三个端口分别作用是<b>Web管理界面</b>，<b>应用程序通讯端口</b>，<b>实例集群通讯端口</b> <br />
     你可以在浏览器中打开<b>Web管理界面</b>通过浏览器快速管理RethinkDB<br/>
     应用程序(列如一个nodejs应用)可以通过<b>应用程序通讯端口</b>来执行查询操作<br/>
     当你启用集群模式时各个节点会使用<b>实例集群通讯端口<b/>通讯<br/><br/>
-    如果你启动集群实例时指定错端口则会发生'received invalid clustering header'提示<br/>
+    如果你启动集群实例时指定错端口则会发生'received invalid clustering header'提示<br/></p>
 </div>

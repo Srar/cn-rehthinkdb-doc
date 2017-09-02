@@ -840,41 +840,44 @@ r.table("invoices")
 在分布式系统中使用自增值作为主键而不能重复的确是一个不小的挑战. 
 目前如果插入的记录缺少主键RethinkDB会随机一个UUID作为主键来使用.
 目前自增主键功能还在我们的待开发功能中您可以通过[https://github.com/rethinkdb/rethinkdb/issues/117](https://github.com/rethinkdb/rethinkdb/issues/117)来查看进度.
-如果您必须要用自增主键咋办? 那么我可以告诉你 ~~无可奉告~~ 使用开源库来解决.
+如果您必须要用自增主键咋办? 那么请使用开源库来解决.
 
 
-## Parsing RethinkDB's response to a write query ##
+## RethinkDB查询后所返回的数据 ##
 
-__不做翻译您可以查看[10分钟快速了解](/docs/2-0)来了解这段是讲啥的__
+当您执行查询(`insert`, `delete`, `update`, or
+`replace`)后RethinkDB会返回以下结构的对象给你:
 
-When you issue a write query (`insert`, `delete`, `update`, or
-`replace`), RethinkDB returns a summary object that looks like this:
-
-```javascript
-{deleted:0, replaced:0, unchanged:0, errors:0, skipped:0, inserted:1}
+```json
+{
+    "deleted":0,
+    "replaced":0,
+    "unchanged":0,
+    "errors":0,
+    "skipped":0,
+    "inserted":1
+}
 ```
 
-The most important field of this object is `errors`.  Generally
-speaking, if no exceptions are thrown and `errors` is 0 then the write
-did what it was supposed to.  (RethinkDB throws an exception when it
-isn't even able to access the table; it sets the `errors` field if it
-can access the table but an error occurs during the write.  This
-convention exists so that batched writes don't abort halfway through
-when they encounter an error.)
+其中您最需要关注的字段是`errors`字段.
+当查询结束后如果没有异常且`errors`为0说明查询执行正常.
+如果您查询时候遇到了异常那么绝大可能是RethinkDB已经无法正常访问该表了.
+如果`errors`这个字段还要说明只是写入时候出了些小问题.
 
-The following fields are always present in this object:
+以下是RethinkDB查询后返回的对象结构描述:
 
-* `inserted` -- Number of new documents added to the database.
-* `deleted` -- Number of documents deleted from the database.
-* `replaced` -- Number of documents that were modified.
-* `unchanged` -- Number of documents that would have been modified, except that the new value was the same as the old value.
-* `skipped` -- Number of documents that were unmodified in a write operation, because the document is not available to be deleted or updated. The document might have been deleted by a different operation happening concurrently, or in the case of a `get` operation the key might not exist.
-* `errors` -- Number of documents that were left unmodified due to an error.
+* `inserted` -- 已插入数据库的记录数量.
+* `deleted` --  已删除数据库的记录数量.
+* `replaced` -- 已修改数据库的记录数量.
+* `unchanged` -- 本应修改的记录数量, 但是待修改的值和原纪录的值一样.
+* `skipped` -- 未被修改的记录数量. 可能在非原子操作中被其他查询更改或删除.
+* `errors` -- 由于错误而未修改的记录数量.
 
-In addition, the following two fields are set as circumstances dictate:
+使用特定命令时才会有的以下字段:
 
-* `generated_keys` -- If you issue an insert query where some or all of the rows lack primary keys, the server will generate primary keys for you and return an array of those keys in this field.  (The order of this array will match the order of the rows in your insert query.)
-* `first_error` -- If `errors` is positive, the text of the first error message encountered will be in this field.  This is a very useful debugging aid.  (We don't return all of the errors because a single typo can result in millions of errors when operating on a large database.)
+* `generated_keys` -- 当您使用插入`insert`命令时并且您的插入命令内没有指定主键. 那么RethinkDB会自动生成一个主键
+并将生成的主键放置在这个字段中.
+* `first_error` -- 当`errors`大于等于1时, 这个字段会被放置首个错误信息. 因为在数据库记录非常多的情况下引发错误会导致有非常多的错误信息.
 
 ## ReQL 命令中使用动态字段 ##
 
