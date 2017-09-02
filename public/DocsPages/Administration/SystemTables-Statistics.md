@@ -2,7 +2,7 @@
 `stats`表RethinkDB 1.16中添加的系统表之一.
 它提供有关实例读/写吞吐量, 客户端连接和内存使用情况的统计信息.
 
-# 查询stats表
+## 查询stats表
 > 与其他系统表一样, `stats`表只能由`admin`帐户访问.
 
 ```javascript
@@ -30,11 +30,12 @@ r.db("rethinkdb").table("stats").get(["table", "31c92680-f70c-4a4b-a49e-b238eb12
 r.db("rethinkdb").table("stats").get(["table_server", "31c92680-f70c-4a4b-a49e-b238eb12c023", "de8b75d1-3184-48f0-b1ef-99a9c04e2be5"]).run(conn, callback);
 ```
 
-# 结构概要
+## 结构概要
 每个对象的状态记录结构都不相同, 您可以用过查看字段名来了解这个字段是描述什么状态的.
 当查询对象为`server`, `db`, `table`时您可以为`table`命令指定`identifier_format`参数来说明返回的记录由UUID显示还是由对象名显示.
 
-## cluster
+__cluster__
+
 ```json
 {
   id: ["cluster"],
@@ -46,7 +47,8 @@ r.db("rethinkdb").table("stats").get(["table_server", "31c92680-f70c-4a4b-a49e-b
 }
 ```
 
-## server
+__server__
+
 ```json
 {
   id: ["server", <UUID>],
@@ -73,7 +75,8 @@ r.db("rethinkdb").table("stats").get(["table_server", "31c92680-f70c-4a4b-a49e-b
 }
 ```
 
-## table
+__table__
+
 ```json
 {
   id: ["table", <UUID>],
@@ -86,7 +89,8 @@ r.db("rethinkdb").table("stats").get(["table_server", "31c92680-f70c-4a4b-a49e-b
 }
 ```
 
-## replica (table/server pair)
+__replica (table/server pair)__
+
 ```
 {
   id: ["table_server", <UUID>, <UUID>]  // table_id, server_id

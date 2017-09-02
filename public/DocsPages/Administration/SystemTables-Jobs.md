@@ -2,7 +2,7 @@
 `jobs`表RethinkDB 1.16中添加的系统表之一.
 它提供有关在RethinkDB群集中运行的任务信息, 包括查询, 数据压缩和创建索引, 并允许您通过从表中删除任务来终止任务.
 
-# 查询jobs表
+## 查询jobs表
 > 与其他系统表一样, `jobs`表只能由`admin`帐户访问.
 
 表中的主键是`id`字段，且其是一个数组. 第一个数组元素是任务的字符串类型(列如`query`, `disk_compaction`).
@@ -21,7 +21,8 @@ r.db("rethinkdb").table("jobs").get(
 ).delete().run(conn, callback);
 ```
 
-# 结构概要
+## 结构概要
+
 任务类型共有4种. 4种任务类型记录结构都是一样的, `info`字段内会标识任务特定信息.
 
 ```json
@@ -34,7 +35,8 @@ r.db("rethinkdb").table("jobs").get(
 }
 ```
 
-## query
+__query__
+
 由那个客户端发出的查询请求:
 
 ```json
@@ -44,13 +46,14 @@ info: {
 }
 ```
 
-## disk_compaction
+__disk_compaction__
+
 有哪些实例正在执行数据压缩压缩任务, `disk_compaction`不包含特定任务信息.
 ```json
 info: { }
 ```
 
-## index_construction
+__index_construction__
 
 该任务标示了有那些索引创建任务.`progress`字段为0~1之间的值，乘以100就是创建索引进度的百分比.
 
@@ -62,7 +65,9 @@ info: {
     "table": <table name>
 }
 ```
-## backfill
+
+__backfill__
+
 回填任务表示集群之间正在传送最新分片数据. `progress`字段为0~1之间的值，乘以100就是回填进度的百分比.
 
 ```json

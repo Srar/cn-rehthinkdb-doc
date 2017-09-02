@@ -1,7 +1,7 @@
 # 管理工具
 
 RethinkDB为您提供了一个Web管理界面, 通过Web管理界面您可以直接管理整个RethinkDB实例或者实例集群. 
-也可以通过Web管理界面来管理表分片和复制. 并可以在Web管理界面中还能直接运行ReQL命令同时还能记住您运行过的ReQL命令并为您提供查询性能视图.
+也可以通过Web管理界面来管理表分片和复制. 还可以在Web管理界面中直接运行ReQL命令, 记住您运行过的ReQL命令并为您提供查询性能分析视图.
 
 # Web管理界面
 ![webui](/DocsPages/images/webui.png)
@@ -14,7 +14,7 @@ Web管理界面监听端口默认为localhost:8080监听本地回环地址是为
 # ReQL管理命令
 您为您擅长的编程语言安装好RethinkDB库以后就可以通过您擅长的编程语言来管理RethinkDB了.
 您可以通过ReQL命令来[设置分片以及复制](https://www.rethinkdb.com/api/python/reconfigure), [平衡分片](https://www.rethinkdb.com/api/python/rebalance), 还有更多管理操作.
-另外您可以通过查询[系统表](https://www.rethinkdb.com/docs/system-tables/)来了解实例集群状况.
+另外您可以通过查询[系统表](https://www.rethinkdb.com/docs/system-tables/)来了解实例集群状态.
 
 在这篇文章中例子将会使用Python. 如您想使用其他语言您可以阅读不同语言的API文档来来了解命令, 以及命令的返回值.
 
@@ -27,7 +27,7 @@ r.connect('localhost', 28015).repl()
 ```
 现在您可以使用ReQL命令来查询系统表或者来更改配置.您可以查询`rethinkdb`数据库的`server_status`系统表来了解RethinkDB实例情况:
 
-```
+```python
 list(r.db('rethinkdb').table('server_status').run())
 
 [
@@ -210,8 +210,8 @@ r.table('b').reconfigure(shards=2, replicas={'us_east':2, 'us_west':2,
 
 `Data Explorer`在Web管理界面中使用Javascript为交互环境, 并提供ReQL高亮以及ReQL执行历史.
 
-## 脚本语言 ReQL
-ReQL配合脚本语言列如Python会使得您管理或者配置RethinkDB更加方便. 
+## 脚本语言与ReQL
+ReQL配合脚本语言例如Python会使得您管理或者配置RethinkDB更加方便. 
 如果您可能需要为新表或对整个数据库进行调整或复杂配置，则可以将ReQL在脚本中.
 
 ```python

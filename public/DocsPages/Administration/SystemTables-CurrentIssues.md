@@ -35,11 +35,11 @@ r.db("rethinkdb").table("current_issues").run(conn, callback);
 r.db("rethinkdb").table("current_issues").filter({type: "outdated_index"}).run(conn, callback);
 ```
 
-# 问题类型
+## 问题类型
 
 > 如果您为`table`指定了`identifier_format`参数为`uuid`, 那么问题内的实例, 数据库, 表都会以uuid来表示而不是名字.
 
-## Log write issues
+__Log write issues__
 
 ```
 type: "log_write_error"
@@ -56,7 +56,8 @@ RethinkDB无法将日志写入日志文件(或者通过管道`stdout/stderr`).
 请查找并解决实例无法写入日志问题(可能是硬盘满了). 如有多个相同的错误类型, 那么表内只会出现一个问题.
 
 
-## Name collision issues
+__Name collision issues__
+
 ```
 type: "server_name_collision" | "db_name_collision" | "table_name_collision"
 critical: true
@@ -76,7 +77,7 @@ info: {
 然后同时建立了拥有相同名称的表或数据库. 当发生冲突时候系统将无法从冲突中的数据库或者表中读取或写入数据.
 
 
-## Outdated index issues
+__Outdated index issues__
 
 ```json
 type: "outdated_index"
@@ -96,7 +97,7 @@ info: {
 
 `info`字段内会说明那些表的索引需要重建.
 
-## Table availability issues
+__Table availability issues__
 
 ```json
 type: "table_availability"
@@ -129,7 +130,8 @@ info: {
 
 对于每个表触发这个问题类型最多会触发一次.
 
-## Memory availability issues
+__Memory availability issues__
+
 ```json
 type: "memory_error"
 critical: false
@@ -146,7 +148,8 @@ Windows版本下RethinkDB无法检测是否已经使用分页内存.
 当RethinkDB开始使用swap内存时, 会导致RethinkDB性能下降. 使用的swap内存越多性能下降的越多.
 您可能需要在服务器上关闭一些不使用的进程, 调整swap内存大小, 或调整内核`swappiness`参数([Troubleshooting](#)来了解详细). 或者来个更直接的给服务器加内存.
 
-## Connectivity issues
+__Connectivity issues__
+
 ```
 type: "non_transitive_error"
 critical: false

@@ -2,7 +2,7 @@
 您可以在命令行中使用RethinkDB子命令`dump`, `restore`来备份或者还原您的数据. 
 工具会运行在`admin`账户上.
 
-# 备份
+## 备份
 使用子命令`dump`可以为集群或者实例内数据创建一个由JSON文档和其他表元数据组成的tar.gz文件.
 ```
 rethinkdb dump [options]
@@ -21,7 +21,8 @@ rethinkdb dump [options]
 RethinkDB备份进程依赖[Python RethinkDB库](https://www.rethinkdb.com/docs/install-drivers/python/), 并在备份过程中使用并发备份. 
 并发备份可能会占用一部分集群资源, 但是备份期间不会锁定任何其他连接. 所以请放心备份.
 
-## 例子
+__例子__
+
 ```
 rethinkdb dump -c fortress:39500
 ```
@@ -34,7 +35,7 @@ rethinkdb dump -e league.users -f backup.tar.gz --password-file pw.txt
 
 > __Note:__ `dump`命令会备份表或者数据库的内容与元数据, 但是__不会备份__集群配置信息.
 
-# 还原
+## 还原
 `restore`子命令的大多数参数与`dump`一样, 尽管有一些额外的命令来控制数据导入的方式.
 
 ```
@@ -57,7 +58,8 @@ rethinkdb restore filename
 >
 > 如果您真的需要这样为低版本RethinkDB还原数据您可以在`restore`加上`--no-secondary-indexes`参数. 但是这样做不保证100%可用.
 
-# 例子
+__例子__
+
 ```
 rethinkdb restore rethinkdb_dump_2015-09-17T10:59:58.tar.gz
 ```
