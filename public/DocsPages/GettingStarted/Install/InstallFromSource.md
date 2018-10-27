@@ -15,7 +15,7 @@ __CentOS/RedHat依赖安装__
 ```shell
 sudo yum install openssl-devel libcurl-devel wget tar m4 git-core \
                  boost-static m4 gcc-c++ npm ncurses-devel which \
-                 make ncurses-static zlib-devel zlib-static
+                 make ncurses-static zlib-devel bzip2 patch zlib-static
 
 sudo yum install epel-release
 sudo yum install protobuf-devel protobuf-static jemalloc-devel
